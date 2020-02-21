@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>1.0.20052.1</AssemblyVersion>
+    <FileVersion>1.0.20052.1</FileVersion>
+    <AssemblyName>Edgerunner.Dice</AssemblyName>
+    <RootNamespace>Org.Edgerunner.Dice</RootNamespace>
+    <PackageId>Org.Edgerunner.Dice</PackageId>
+    <Company>Edgerunner.org</Company>
+    <Authors>Thaddeus Ryker</Authors>
+    <Description>A dice library to simulate a multitude of dice rolls.</Description>
+    <Copyright>2020</Copyright>
+  </PropertyGroup>
+
+</Project>
