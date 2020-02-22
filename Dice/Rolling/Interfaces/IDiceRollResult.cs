@@ -16,6 +16,8 @@
 // limitations under the License.
 #endregion
 
+using System.Collections.Generic;
+
 namespace Org.Edgerunner.Dice.Rolling.Interfaces
 {
    /// <summary>
@@ -23,6 +25,40 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
    /// </summary>
    public interface IDiceRollResult
    {
-      
+      /// <summary>
+      /// Gets or sets the initial set of rolled die results.
+      /// </summary>
+      /// <value>The initial dice.</value>
+      IList<IDieRollResult> InitialDice { get; set; }
+
+      /// <summary>
+      /// Gets or sets the set of all rolled dice.
+      /// </summary>
+      /// <value>The set of all rolled dice.</value>
+      IList<IDieRollResult> RawDice { get; set; }
+
+      /// <summary>
+      /// Gets or sets the final set of result dice.
+      /// </summary>
+      /// <value>The logical dice.</value>
+      IList<IDieRollResult> LogicalDice { get; set; }
+
+      /// <summary>
+      /// Gets or sets the discarded dice.
+      /// </summary>
+      /// <value>The discarded dice.</value>
+      IList<IDieRollResult> DiscardedDice { get; set; }
+
+      /// <summary>
+      /// Gets or sets a value indicating whether this instance is botched roll.
+      /// </summary>
+      /// <value><c>true</c> if this instance is botched roll; otherwise, <c>false</c>.</value>
+      bool IsBotchedRoll { get; set; }
+
+      /// <summary>
+      /// Gets or sets the total value for the roll.
+      /// </summary>
+      /// <value>The total value.</value>
+      int TotalValue { get; set; }
    }
 }

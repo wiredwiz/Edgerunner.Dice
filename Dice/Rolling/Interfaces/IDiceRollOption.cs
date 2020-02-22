@@ -26,32 +26,32 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// <summary>
       /// Executes option logic that should happen immediately after the dice are rolled.
       /// </summary>
-      void ExecutePostRollLogic();
+      void ExecutePostRollLogic(IDiceRollResult result);
 
       /// <summary>
       /// Executes option logic to determine whether a die re-roll should be allowed.
       /// </summary>
       /// <returns><c>true</c> if the re-roll should be allowed to continue, <c>false</c> otherwise.</returns>
-      bool AllowReRoll();
+      bool AllowReRoll(IDiceRollResult result);
 
       /// <summary>
       /// Executes option logic that should happen once it is time for any potential re-rolls.
       /// </summary>
-      void ExecuteReRollLogic();
+      void ExecuteReRollLogic(IDiceRollResult result);
 
       /// <summary>
       /// Executes option logic that should happen once it is time for any additional rolls.
       /// </summary>
-      void ExecuteAdditionalRollLogic();
+      void ExecuteAdditionalRollLogic(IDiceRollResult result);
 
       /// <summary>
       /// Executes option logic that should happen prior to final die result calculations.
       /// </summary>
-      void ExecutePreResultCalculation();
+      void ExecutePreResultCalculation(IDiceRollResult result);
 
       /// <summary>
       /// Executes option logic that should happen after the final die result calculations.
       /// </summary>
-      void ExecutePostResultCalculation();
+      void ExecutePostResultCalculation(IDiceRollResult result);
    }
 }

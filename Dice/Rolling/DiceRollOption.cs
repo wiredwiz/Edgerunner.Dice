@@ -28,36 +28,36 @@ namespace Org.Edgerunner.Dice.Rolling
    public class DiceRollOption : IDiceRollOption
    {
       /// <inheritdoc/>
-      public virtual void ExecutePostRollLogic()
+      public virtual void ExecutePostRollLogic(IDiceRollResult result)
       {
       }
 
       /// <inheritdoc/>
-      public bool AllowReRoll()
-      {
-         throw new System.NotImplementedException();
-      }
-
-      /// <inheritdoc/>
-      public void ExecuteReRollLogic()
+      public bool AllowReRoll(IDiceRollResult result)
       {
          throw new System.NotImplementedException();
       }
 
       /// <inheritdoc/>
-      public void ExecuteAdditionalRollLogic()
+      public void ExecuteReRollLogic(IDiceRollResult result)
       {
          throw new System.NotImplementedException();
       }
 
       /// <inheritdoc/>
-      public void ExecutePreResultCalculation()
+      public void ExecuteAdditionalRollLogic(IDiceRollResult result)
       {
          throw new System.NotImplementedException();
       }
 
       /// <inheritdoc/>
-      public void ExecutePostResultCalculation()
+      public void ExecutePreResultCalculation(IDiceRollResult result)
+      {
+         throw new System.NotImplementedException();
+      }
+
+      /// <inheritdoc/>
+      public void ExecutePostResultCalculation(IDiceRollResult result)
       {
          throw new System.NotImplementedException();
       }

@@ -36,7 +36,7 @@ namespace Org.Edgerunner.Dice
 
       /// <inheritdoc/>
       /// <exception cref="T:Org.Edgerunner.Dice.Exceptions.DieCodeException">The dice code was unrecognized.</exception>
-      public virtual List<IDie> Create(string diceCode)
+      public virtual IList<IDie> Create(string diceCode)
       {
          if (!ParseDieCode(diceCode, out var quantity, out var faces))
             throw new DieCodeException($"\"{diceCode}\" is not a recognized dice code");
@@ -46,13 +46,13 @@ namespace Org.Edgerunner.Dice
 
       /// <inheritdoc/>
       /// <exception cref="T:System.ArgumentOutOfRangeException">Quantity is less than 1 or faces is less than 2.</exception>
-      public virtual List<IDie> Create(int quantity, int faces)
+      public virtual IList<IDie> Create(int quantity, int faces)
       {
          if (quantity < 1)
-            throw new ArgumentOutOfRangeException(nameof(quantity), "must be greater than 0");
+            throw new ArgumentOutOfRangeException(nameof(quantity), "must be greater than 0.");
 
          if (faces < 2)
-            throw new ArgumentOutOfRangeException(nameof(faces), "must be 2 or greater");
+            throw new ArgumentOutOfRangeException(nameof(faces), "must be 2 or greater.");
 
          // figure out what type of die we need and return 1 or more instances based on the die code
          var dice = new List<IDie>();

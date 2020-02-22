@@ -32,7 +32,7 @@ namespace Org.Edgerunner.Dice
       /// </summary>
       /// <param name="diceCode">The dice code.</param>
       /// <returns>A new <see cref="List{IDie}"/>.</returns>
-      List<IDie> Create(string diceCode);
+      IList<IDie> Create(string diceCode);
 
       /// <summary>
       /// Creates a list of dice corresponding to the supplied dice code.
@@ -40,6 +40,6 @@ namespace Org.Edgerunner.Dice
       /// <param name="quantity">The quantity of dice to create.</param>
       /// <param name="faces">The number of faces each die should have.</param>
       /// <returns>A new <see cref="List{IDie}" />.</returns>
-      List<IDie> Create(int quantity, int faces);
+      IList<IDie> Create(int quantity, int faces);
    }
 }
