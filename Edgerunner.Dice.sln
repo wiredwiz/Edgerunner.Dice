@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1022
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceScript2.0", "DiceScript2.0\DiceScript2.0.csproj", "{23DED841-3E69-4442-86BC-06CAE3FEDD6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceScript2.0", "DiceScript2.0\DiceScript2.0.csproj", "{23DED841-3E69-4442-86BC-06CAE3FEDD6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dice", "Dice\Dice.csproj", "{D4F92BAD-CDDE-4FC6-BAB0-6583832214F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dice", "Dice\Dice.csproj", "{D4F92BAD-CDDE-4FC6-BAB0-6583832214F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{72D962B4-D321-4D10-8869-82CA29A7DDF9}"
 	ProjectSection(SolutionItems) = preProject
 		Edgerunner.Dice.sln.DotSettings = Edgerunner.Dice.sln.DotSettings
 		Settings.StyleCop = Settings.StyleCop
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dice.Tests", "Dice.Tests\Dice.Tests.csproj", "{53F47B3A-7113-4B22-B60F-E1AD26093645}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{D4F92BAD-CDDE-4FC6-BAB0-6583832214F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4F92BAD-CDDE-4FC6-BAB0-6583832214F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4F92BAD-CDDE-4FC6-BAB0-6583832214F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F47B3A-7113-4B22-B60F-E1AD26093645}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F47B3A-7113-4B22-B60F-E1AD26093645}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F47B3A-7113-4B22-B60F-E1AD26093645}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F47B3A-7113-4B22-B60F-E1AD26093645}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
