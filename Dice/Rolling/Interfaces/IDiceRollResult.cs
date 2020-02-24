@@ -26,39 +26,45 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
    public interface IDiceRollResult
    {
       /// <summary>
-      /// Gets or sets the initial set of rolled die results.
+      /// Gets the initial set of rolled die results.
       /// </summary>
       /// <value>The initial dice.</value>
-      IList<IDieRollResult> InitialDice { get; set; }
+      IList<IDieRollResult> InitialDice { get; }
 
       /// <summary>
-      /// Gets or sets the set of all rolled dice.
+      /// Gets the set of all rolled dice.
       /// </summary>
       /// <value>The set of all rolled dice.</value>
-      IList<IDieRollResult> RawDice { get; set; }
+      IList<IDieRollResult> RawDice { get; }
 
       /// <summary>
-      /// Gets or sets the final set of result dice.
+      /// Gets the final set of result dice.
       /// </summary>
       /// <value>The logical dice.</value>
-      IList<IDieRollResult> LogicalDice { get; set; }
+      IList<IDieRollResult> LogicalDice { get; }
 
       /// <summary>
-      /// Gets or sets the discarded dice.
+      /// Gets the sets of result dice matches.
+      /// </summary>
+      /// <value>The logical dice.</value>
+      IList<IDieRollResult> DiceMatches { get; }
+
+      /// <summary>
+      /// Gets the discarded dice.
       /// </summary>
       /// <value>The discarded dice.</value>
-      IList<IDieRollResult> DiscardedDice { get; set; }
+      IList<IDieRollResult> DiscardedDice { get; }
 
       /// <summary>
-      /// Gets or sets a value indicating whether this instance is botched roll.
+      /// Gets a value indicating whether this instance is botched roll.
       /// </summary>
       /// <value><c>true</c> if this instance is botched roll; otherwise, <c>false</c>.</value>
-      bool IsBotchedRoll { get; set; }
+      bool IsBotchedRoll { get; }
 
       /// <summary>
-      /// Gets or sets the total value for the roll.
+      /// Gets the total value for the roll.
       /// </summary>
       /// <value>The total value.</value>
-      int TotalValue { get; set; }
+      int TotalValue { get; }
    }
 }

@@ -19,7 +19,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
+using Org.Edgerunner.Dice.Exceptions;
 using Org.Edgerunner.Dice.Rolling.Interfaces;
 
 namespace Org.Edgerunner.Dice.Rolling
@@ -29,23 +31,37 @@ namespace Org.Edgerunner.Dice.Rolling
    /// </summary>
    public class DiceRollOptions : IDiceRollOptions
    {
-      private readonly List<IDiceRollOption> _Options;
+      /// <summary>
+      /// The list of options.
+      /// </summary>
+      protected readonly List<IDiceRollOption> Options;
+
+      /// <summary>
+      /// The dictionary used to keep a keyed list of our options
+      /// </summary>
+      protected readonly Dictionary<Type, IDiceRollOption> OptionsKeyed;
 
       /// <summary>
       /// Initializes a new instance of the <see cref="DiceRollOptions"/> class.
       /// </summary>
       public DiceRollOptions()
       {
-         _Options = new List<IDiceRollOption>();
+         Options = new List<IDiceRollOption>();
       }
 
       /// <summary>
       /// Initializes a new instance of the <see cref="DiceRollOptions"/> class.
       /// </summary>
       /// <param name="options">The options.</param>
+      /// <exception cref="T:System.ArgumentNullException"><paramref name="options"/> is <see langword="null"/></exception>
       public DiceRollOptions(IEnumerable<IDiceRollOption> options)
       {
-         _Options = new List<IDiceRollOption>(options);
+         if (options is null) throw new ArgumentNullException(nameof(options));
+
+         var diceRollOptions = options as IDiceRollOption[] ?? options.ToArray();
+         Options = new List<IDiceRollOption>(diceRollOptions);
+         OptionsKeyed = new Dictionary<Type, IDiceRollOption>();
+         foreach (IDiceRollOption option in diceRollOptions) OptionsKeyed[option.OptionType] = option;
       }
 
       /// <summary>
@@ -92,17 +108,25 @@ namespace Org.Edgerunner.Dice.Rolling
       /// <inheritdoc/>
       IEnumerator<IDiceRollOption> IEnumerable<IDiceRollOption>.GetEnumerator()
       {
-         return _Options.GetEnumerator();
+         return Options.GetEnumerator();
       }
+
+      /// <inheritdoc/>
+      public int Count => Options.Count;
 
       /// <exception cref="ArgumentNullException"></exception>
       /// <inheritdoc/>
+      /// <exception cref="T:Org.Edgerunner.Dice.Exceptions.OptionConflictException">Dice roll options may not contain two options of the same option type.</exception>
       public IDiceRollOptions Add(IDiceRollOption option)
       {
          if (option == null)
             throw new ArgumentNullException(nameof(option));
 
-         _Options.Add(option);
+         if (OptionsKeyed.ContainsKey(option.OptionType))
+            throw new OptionConflictException("Dice roll options may not contain two options of the same option type.");
+
+         Options.Add(option);
+         OptionsKeyed[option.OptionType] = option;
          return this;
       }
 
@@ -113,13 +137,19 @@ namespace Org.Edgerunner.Dice.Rolling
          if (option == null)
             throw new ArgumentNullException(nameof(option));
 
-         return _Options.Contains(option);
+         return Options.Contains(option);
+      }
+
+      /// <inheritdoc/>
+      public bool ContainsOptionOfType(Type optionType)
+      {
+         return OptionsKeyed.ContainsKey(optionType);
       }
 
       /// <inheritdoc/>
       public IEnumerator GetEnumerator()
       {
-         return ((IEnumerable)_Options).GetEnumerator();
+         return ((IEnumerable)Options).GetEnumerator();
       }      
    }
 }

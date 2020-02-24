@@ -16,6 +16,9 @@
 // limitations under the License.
 #endregion
 
+using System;
+using System.Collections.Generic;
+
 namespace Org.Edgerunner.Dice.Rolling.Interfaces
 {
    /// <summary>
@@ -24,34 +27,51 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
    public interface IDiceRollOption
    {
       /// <summary>
-      /// Executes option logic that should happen immediately after the dice are rolled.
+      /// Gets the type of the option.
       /// </summary>
-      void ExecutePostRollLogic(IDiceRollResult result);
+      /// <value>The type of the option.</value>
+      Type OptionType { get; }
 
       /// <summary>
-      /// Executes option logic to determine whether a die re-roll should be allowed.
+      /// Executes option logic that should happen immediately after the dice are rolled.
       /// </summary>
+      /// <param name="results">The dice roll results to operate on.</param>
+      void ExecutePostRollLogic(IEnumerable<IDieRollResult> results);
+
+      /// <summary>
+      /// Executes option logic to determine whether a die re-roll should be allowed for the specified result.
+      /// </summary>
+      /// <param name="result">The die roll result to operate on.</param>
       /// <returns><c>true</c> if the re-roll should be allowed to continue, <c>false</c> otherwise.</returns>
-      bool AllowReRoll(IDiceRollResult result);
+      bool AllowReRoll(IDieRollResult result);
 
       /// <summary>
       /// Executes option logic that should happen once it is time for any potential re-rolls.
       /// </summary>
-      void ExecuteReRollLogic(IDiceRollResult result);
+      /// <param name="results">The dice roll results to operate on.</param>
+      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled.</returns>
+      /// <remarks>This should only be used for dice re-rolls, not for additional dice (such as exploding dice)</remarks>
+      IEnumerable<IDieRollResult> ExecuteReRollLogic(IEnumerable<IDieRollResult> results);
 
       /// <summary>
       /// Executes option logic that should happen once it is time for any additional rolls.
       /// </summary>
-      void ExecuteAdditionalRollLogic(IDiceRollResult result);
+      /// <param name="results">The dice roll results to operate on.</param>
+      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled.</returns>
+      IEnumerable<IDieRollResult> ExecuteAdditionalRollLogic(IEnumerable<IDieRollResult> results);
 
       /// <summary>
       /// Executes option logic that should happen prior to final die result calculations.
       /// </summary>
-      void ExecutePreResultCalculation(IDiceRollResult result);
+      /// <param name="results">The dice roll results to operate on.</param>
+      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled.</returns>
+      IEnumerable<IDieRollResult> ExecutePreResultCalculation(IEnumerable<IDieRollResult> results);
 
       /// <summary>
       /// Executes option logic that should happen after the final die result calculations.
       /// </summary>
-      void ExecutePostResultCalculation(IDiceRollResult result);
+      /// <param name="results">The dice roll results to operate on.</param>
+      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled.</returns>
+      IEnumerable<IDieRollResult> ExecutePostResultCalculation(IEnumerable<IDieRollResult> results);
    }
 }

@@ -15,20 +15,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
+
+using Org.Edgerunner.Dice.Types.Interfaces;
+
 namespace Org.Edgerunner.Dice.Rolling.Interfaces
 {
+   /// <summary>
+   /// Interface that represents a single die roll result
+   /// </summary>
    public interface IDieRollResult
    {
+      /// <summary>
+      /// Gets the die that was rolled.
+      /// </summary>
+      /// <value>The die.</value>
+      /// <seealso cref="IDie"/>
+      /// <seealso cref="Die"/>
+      IDie Die { get; }
+
       /// <summary>Gets or sets a value indicating whether this instance was discarded.</summary>
       /// <value>
-      ///   <c>true</c> if this instance was discarded; otherwise, <c>false</c>.</value>
-      bool IsDiscarded { get; set; }
+      /// <c>true</c> if this instance was discarded; otherwise, <c>false</c>.</value>
+      bool WasDiscarded { get; set; }
 
       /// <summary>
-      /// Gets or sets the next re-rolled die roll.
+      /// Gets or sets the next rolled die roll.
       /// </summary>
-      /// <value>The next re-roll.</value>
-      IDieRollResult NextReRoll { get; set; }
+      /// <value>The next roll.</value>
+      IDieRollResult NextRoll { get; set; }
 
       /// <summary>
       /// Gets or sets a value indicating whether the roll is success driven.
@@ -59,5 +73,11 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// </summary>
       /// <value>The resulting value.</value>
       int Value { get; set; }
+
+      /// <summary>
+      /// Re-rolls this die result and links the re-roll to this instance.
+      /// </summary>
+      /// <returns>The new <see cref="IDieRollResult"/>.</returns>
+      IDieRollResult ReRoll();
    }
 }

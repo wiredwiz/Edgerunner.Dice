@@ -16,6 +16,7 @@
 // limitations under the License.
 #endregion
 
+using System;
 using System.Collections.Generic;
 
 namespace Org.Edgerunner.Dice.Rolling.Interfaces
@@ -27,6 +28,12 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
    /// <seealso cref="System.Collections.Generic.IEnumerable{IDiceRollOption}" />
    public interface IDiceRollOptions : IEnumerable<IDiceRollOption>
    {
+      /// <summary>
+      /// Gets the option count.
+      /// </summary>
+      /// <value>The option count.</value>
+      int Count { get; }
+
       /// <summary>
       /// Adds the specified option.
       /// </summary>
@@ -40,5 +47,12 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// <param name="option">The option.</param>
       /// <returns><c>true</c> if this contains the specified option; otherwise, <c>false</c>.</returns>
       bool Contains(IDiceRollOption option);
+
+      /// <summary>
+      /// Determines whether this instance contains an option of the specified option type.
+      /// </summary>
+      /// <param name="optionType">Type of the option.</param>
+      /// <returns><c>true</c> if contains option of the specified option type; otherwise, <c>false</c>.</returns>
+      bool ContainsOptionOfType(Type optionType);
    }
 }

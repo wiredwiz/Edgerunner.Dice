@@ -16,6 +16,9 @@
 // limitations under the License.
 #endregion
 
+using System;
+using System.Collections.Generic;
+
 using Org.Edgerunner.Dice.Rolling.Interfaces;
 
 namespace Org.Edgerunner.Dice.Rolling
@@ -28,36 +31,39 @@ namespace Org.Edgerunner.Dice.Rolling
    public class DiceRollOption : IDiceRollOption
    {
       /// <inheritdoc/>
-      public virtual void ExecutePostRollLogic(IDiceRollResult result)
+      public Type OptionType { get; }
+
+      /// <inheritdoc/>
+      public virtual void ExecutePostRollLogic(IEnumerable<IDieRollResult> result)
       {
       }
 
       /// <inheritdoc/>
-      public bool AllowReRoll(IDiceRollResult result)
-      {
-         throw new System.NotImplementedException();
-      }
-
-      /// <inheritdoc/>
-      public void ExecuteReRollLogic(IDiceRollResult result)
+      public bool AllowReRoll(IDieRollResult result)
       {
          throw new System.NotImplementedException();
       }
 
       /// <inheritdoc/>
-      public void ExecuteAdditionalRollLogic(IDiceRollResult result)
+      public IEnumerable<IDieRollResult> ExecuteReRollLogic(IEnumerable<IDieRollResult> result)
       {
          throw new System.NotImplementedException();
       }
 
       /// <inheritdoc/>
-      public void ExecutePreResultCalculation(IDiceRollResult result)
+      public IEnumerable<IDieRollResult> ExecuteAdditionalRollLogic(IEnumerable<IDieRollResult> result)
       {
          throw new System.NotImplementedException();
       }
 
       /// <inheritdoc/>
-      public void ExecutePostResultCalculation(IDiceRollResult result)
+      public IEnumerable<IDieRollResult> ExecutePreResultCalculation(IEnumerable<IDieRollResult> result)
+      {
+         throw new System.NotImplementedException();
+      }
+
+      /// <inheritdoc/>
+      public IEnumerable<IDieRollResult> ExecutePostResultCalculation(IEnumerable<IDieRollResult> result)
       {
          throw new System.NotImplementedException();
       }
