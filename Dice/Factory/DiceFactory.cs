@@ -19,11 +19,11 @@
 using System;
 using System.Collections.Generic;
 
+using Org.Edgerunner.Dice.Core;
+using Org.Edgerunner.Dice.Core.Interfaces;
 using Org.Edgerunner.Dice.Exceptions;
-using Org.Edgerunner.Dice.Types;
-using Org.Edgerunner.Dice.Types.Interfaces;
 
-namespace Org.Edgerunner.Dice
+namespace Org.Edgerunner.Dice.Factory
 {
    /// <summary>
    /// Class that represents a dice factory.

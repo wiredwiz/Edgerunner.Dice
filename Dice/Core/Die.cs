@@ -19,15 +19,15 @@
 using System;
 using System.Collections.Generic;
 
-using Org.Edgerunner.Dice.Types.Interfaces;
+using Org.Edgerunner.Dice.Core.Interfaces;
 
-namespace Org.Edgerunner.Dice.Types
+namespace Org.Edgerunner.Dice.Core
 {
    /// <summary>
    /// Class that represents a die.
-   /// Implements the <see cref="Org.Edgerunner.Dice.Types.RollableBase" />
+   /// Implements the <see cref="RollableBase" />
    /// </summary>
-   /// <seealso cref="Org.Edgerunner.Dice.Types.RollableBase" />
+   /// <seealso cref="RollableBase" />
    public class Die : RollableBase, IDie
    {
       #region Constructors/Destructors/Disposal

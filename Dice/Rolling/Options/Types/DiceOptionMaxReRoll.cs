@@ -1,5 +1,5 @@
 ﻿#region Apache License 2.0
-// <copyright file="DiceOptionDropKeep.cs" company="Edgerunner.org">
+// <copyright file="DiceOptionMaxReRoll.cs" company="Edgerunner.org">
 // Copyright 2020 Thaddeus Ryker
 // </copyright>
 // 
@@ -16,12 +16,12 @@
 // limitations under the License.
 #endregion
 
-namespace Org.Edgerunner.Dice.Rolling.Options
+namespace Org.Edgerunner.Dice.Rolling.Options.Types
 {
    /// <summary>
-   /// Class that identifies a Drop/Keep dice roll option.
+   /// Class that identifies a maximum re-roll dice roll option.
    /// </summary>
-   public class DiceOptionDropKeep
+   public class DiceOptionMaxReRoll
    {      
    }
 }

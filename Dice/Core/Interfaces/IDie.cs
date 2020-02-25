@@ -16,7 +16,7 @@
 // limitations under the License.
 #endregion
 
-namespace Org.Edgerunner.Dice.Types.Interfaces
+namespace Org.Edgerunner.Dice.Core.Interfaces
 {
    /// <summary>
    /// Interface that represents a single die.

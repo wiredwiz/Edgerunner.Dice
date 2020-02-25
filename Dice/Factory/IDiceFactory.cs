@@ -18,9 +18,9 @@
 
 using System.Collections.Generic;
 
-using Org.Edgerunner.Dice.Types.Interfaces;
+using Org.Edgerunner.Dice.Core.Interfaces;
 
-namespace Org.Edgerunner.Dice
+namespace Org.Edgerunner.Dice.Factory
 {
    /// <summary>
    /// Interface that represents a dice factory.

@@ -33,12 +33,6 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       Type OptionType { get; }
 
       /// <summary>
-      /// Executes option logic that should happen immediately after the dice are rolled.
-      /// </summary>
-      /// <param name="results">The dice roll results to operate on.</param>
-      void ExecutePostRollLogic(IEnumerable<IDieRollResult> results);
-
-      /// <summary>
       /// Executes option logic to determine whether a die re-roll should be allowed for the specified result.
       /// </summary>
       /// <param name="result">The die roll result to operate on.</param>
@@ -49,7 +43,7 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// Executes option logic that should happen once it is time for any potential re-rolls.
       /// </summary>
       /// <param name="results">The dice roll results to operate on.</param>
-      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled.</returns>
+      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled or a <see langword="null" /> value if no dice were rolled.</returns>
       /// <remarks>This should only be used for dice re-rolls, not for additional dice (such as exploding dice)</remarks>
       IEnumerable<IDieRollResult> ExecuteReRollLogic(IEnumerable<IDieRollResult> results);
 
@@ -57,21 +51,36 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// Executes option logic that should happen once it is time for any additional rolls.
       /// </summary>
       /// <param name="results">The dice roll results to operate on.</param>
-      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled.</returns>
+      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled or a <see langword="null" /> value if no dice were rolled.</returns>
       IEnumerable<IDieRollResult> ExecuteAdditionalRollLogic(IEnumerable<IDieRollResult> results);
 
       /// <summary>
-      /// Executes option logic that should happen prior to final die result calculations.
+      /// Executes option logic that updates various die status values (such as critical success or failure).
       /// </summary>
       /// <param name="results">The dice roll results to operate on.</param>
-      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled.</returns>
-      IEnumerable<IDieRollResult> ExecutePreResultCalculation(IEnumerable<IDieRollResult> results);
+      /// <remarks>This method occurs second in the option pipeline after the ExecuteReRollLogic method fires.</remarks>
+      void ExecuteRollStatusUpdateLogic(IEnumerable<IDieRollResult> results);
 
       /// <summary>
-      /// Executes option logic that should happen after the final die result calculations.
+      /// Executes option logic that should calculate success values on dice.
       /// </summary>
       /// <param name="results">The dice roll results to operate on.</param>
-      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new dice that were rolled.</returns>
-      IEnumerable<IDieRollResult> ExecutePostResultCalculation(IEnumerable<IDieRollResult> results);
+      void ExecuteSuccessCalculationLogic(IEnumerable<IDieRollResult> results);
+
+      /// <summary>
+      /// Executes option logic that should occur during the drop/keep stage.
+      /// </summary>
+      /// <param name="results">The dice roll results to operate on.</param>
+      void ExecuteDropKeepLogic(IEnumerable<IDieRollResult> results);
+
+      /// <summary>
+      /// Executes the option logic that should occur after calculation of the entire roll has finished being calculated.
+      /// </summary>
+      /// <param name="result">The result to operate on.</param>
+      /// <returns>The <see cref="IDiceRollResult"/> that was passed in.</returns>
+      /// <remarks>
+      /// This method is the last method in the option pipeline to occur and is typically only used to override the total result.
+      /// </remarks>
+      IDiceRollResult ExecutePostRollResultCalculation(IDiceRollResult result);
    }
 }

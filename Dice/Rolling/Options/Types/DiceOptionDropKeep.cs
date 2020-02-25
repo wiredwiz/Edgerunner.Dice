@@ -1,5 +1,5 @@
 ﻿#region Apache License 2.0
-// <copyright file="IDiceSet.cs" company="Edgerunner.org">
+// <copyright file="DiceOptionDropKeep.cs" company="Edgerunner.org">
 // Copyright 2020 Thaddeus Ryker
 // </copyright>
 // 
@@ -16,27 +16,16 @@
 // limitations under the License.
 #endregion
 
-using System.Collections.Generic;
+using System;
 
-using Org.Edgerunner.Dice.Rolling.Interfaces;
-
-namespace Org.Edgerunner.Dice.Types.Interfaces
+namespace Org.Edgerunner.Dice.Rolling.Options.Types
 {
    /// <summary>
-   /// Interface representing a set of like dice.
+   /// Class that identifies a Drop/Keep dice roll option.
    /// </summary>
-   public interface IDiceSet : IList<IDie>
+   public class DiceOptionDropKeep : DiceRollOption
    {
-      /// <summary>
-      /// Gets or sets the dice roll options.
-      /// </summary>
-      /// <value>The dice roll options.</value>
-      IDiceRollOptions RollOptions { get; set; }
-
-      /// <summary>
-      /// Rolls the dice in this set and returns a result.
-      /// </summary>
-      /// <returns>A new <see cref="IDiceRollResult"/> representing the result of the roll.</returns>
-      IDiceRollResult Roll();
+      /// <inheritdoc />
+      public override Type OptionType => typeof(DiceOptionDropKeep);
    }
 }

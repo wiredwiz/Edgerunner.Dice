@@ -16,10 +16,10 @@
 // limitations under the License.
 #endregion
 
+using Org.Edgerunner.Dice.Core.Interfaces;
 using Org.Edgerunner.Dice.Random;
-using Org.Edgerunner.Dice.Types.Interfaces;
 
-namespace Org.Edgerunner.Dice.Types
+namespace Org.Edgerunner.Dice.Core
 {
    /// <summary>
    /// Base class for roll-able polygons.

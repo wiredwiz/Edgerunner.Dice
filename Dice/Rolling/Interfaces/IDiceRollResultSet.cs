@@ -1,6 +1,6 @@
 ﻿#region Apache License 2.0
-// <copyright file="ModifierType.cs" company="Edgerunner.org">
-// Copyright  Thaddeus Ryker
+// <copyright file="IDiceRollResultSet.cs" company="Edgerunner.org">
+// Copyright 2020 Thaddeus Ryker
 // </copyright>
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,18 +16,10 @@
 // limitations under the License.
 #endregion
 
-namespace Org.Edgerunner.Dice.Types
+namespace Org.Edgerunner.Dice.Rolling.Interfaces
 {
-   /// <summary>
-   /// Enum that represents the type of operation the modifier performs.
-   /// </summary>
-   public enum ModifierType
+   public interface IDiceRollResultSet
    {
-      // ReSharper disable StyleCop.SA1602
-      Add,
-      Subtract,
-      Multiply,
-      Divide
-      // ReSharper restore StyleCop.SA1602
+      
    }
 }

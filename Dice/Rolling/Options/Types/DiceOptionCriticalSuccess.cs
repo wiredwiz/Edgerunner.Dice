@@ -1,5 +1,5 @@
 ﻿#region Apache License 2.0
-// <copyright file="DiceOptionCriticalFailure.cs" company="Edgerunner.org">
+// <copyright file="DiceOptionCriticalSuccess.cs" company="Edgerunner.org">
 // Copyright 2020 Thaddeus Ryker
 // </copyright>
 // 
@@ -16,12 +16,12 @@
 // limitations under the License.
 #endregion
 
-namespace Org.Edgerunner.Dice.Rolling.Options
+namespace Org.Edgerunner.Dice.Rolling.Options.Types
 {
    /// <summary>
-   /// Class that identifies a critical failure specification dice roll option.
+   /// Class that identifies a critical success specification dice roll option.
    /// </summary>
-   public class DiceOptionCriticalFailure
+   public class DiceOptionCriticalSuccess
    {      
    }
 }

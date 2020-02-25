@@ -31,7 +31,8 @@ namespace Org.Edgerunner.Dice.Rolling
    public class DiceRollOption : IDiceRollOption
    {
       /// <inheritdoc/>
-      public Type OptionType { get; }
+      // ReSharper disable once UnassignedGetOnlyAutoProperty
+      public virtual Type OptionType { get; }
 
       /// <inheritdoc/>
       public virtual void ExecutePostRollLogic(IEnumerable<IDieRollResult> result)
@@ -39,33 +40,42 @@ namespace Org.Edgerunner.Dice.Rolling
       }
 
       /// <inheritdoc/>
-      public bool AllowReRoll(IDieRollResult result)
+      public virtual bool AllowReRoll(IDieRollResult result)
       {
-         throw new System.NotImplementedException();
+         return true;
       }
 
       /// <inheritdoc/>
-      public IEnumerable<IDieRollResult> ExecuteReRollLogic(IEnumerable<IDieRollResult> result)
+      public virtual IEnumerable<IDieRollResult> ExecuteReRollLogic(IEnumerable<IDieRollResult> result)
       {
-         throw new System.NotImplementedException();
+         return null;
       }
 
       /// <inheritdoc/>
-      public IEnumerable<IDieRollResult> ExecuteAdditionalRollLogic(IEnumerable<IDieRollResult> result)
+      public virtual IEnumerable<IDieRollResult> ExecuteAdditionalRollLogic(IEnumerable<IDieRollResult> result)
       {
-         throw new System.NotImplementedException();
+         return null;
       }
 
       /// <inheritdoc/>
-      public IEnumerable<IDieRollResult> ExecutePreResultCalculation(IEnumerable<IDieRollResult> result)
+      public virtual void ExecuteRollStatusUpdateLogic(IEnumerable<IDieRollResult> result)
       {
-         throw new System.NotImplementedException();
       }
 
       /// <inheritdoc/>
-      public IEnumerable<IDieRollResult> ExecutePostResultCalculation(IEnumerable<IDieRollResult> result)
+      public virtual void ExecuteSuccessCalculationLogic(IEnumerable<IDieRollResult> result)
       {
-         throw new System.NotImplementedException();
+      }
+
+      /// <inheritdoc/>
+      public virtual void ExecuteDropKeepLogic(IEnumerable<IDieRollResult> results)
+      {
+      }
+
+      /// <inheritdoc/>
+      public virtual IDiceRollResult ExecutePostRollResultCalculation(IDiceRollResult result)
+      {
+         return result;
       }
    }
 }

@@ -1,6 +1,6 @@
-﻿#region Apache License 2.0
-// <copyright file="DiceOptionReRoll.cs" company="Edgerunner.org">
-// Copyright 2020 Thaddeus Ryker
+#region Apache License 2.0
+// <copyright file="IRollable.cs" company="Edgerunner.org">
+// Copyright  Thaddeus Ryker
 // </copyright>
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,12 +16,23 @@
 // limitations under the License.
 #endregion
 
-namespace Org.Edgerunner.Dice.Rolling.Options
+namespace Org.Edgerunner.Dice.Core.Interfaces
 {
    /// <summary>
-   /// Class that identifies a re-roll dice roll option.
+   /// Interface that defines a roll-able polygon of some sort
    /// </summary>
-   public class DiceOptionReRoll
-   {      
+   public interface IRollable
+   {
+      /// <summary>
+      /// Gets the number of sides.
+      /// </summary>
+      /// <value>The number of sides.</value>
+      int Sides { get; }
+
+      /// <summary>
+      /// Rolls this polygon instance.
+      /// </summary>
+      /// <returns>An <see cref="System.Int32"/> that represents the rolled value.</returns>
+      int Roll();
    }
 }

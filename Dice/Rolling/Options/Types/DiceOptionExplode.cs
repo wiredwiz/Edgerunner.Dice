@@ -1,6 +1,6 @@
-#region Apache License 2.0
-// <copyright file="IRollable.cs" company="Edgerunner.org">
-// Copyright  Thaddeus Ryker
+﻿#region Apache License 2.0
+// <copyright file="DiceOptionExplode.cs" company="Edgerunner.org">
+// Copyright 2020 Thaddeus Ryker
 // </copyright>
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,23 +16,16 @@
 // limitations under the License.
 #endregion
 
-namespace Org.Edgerunner.Dice.Types.Interfaces
+using System;
+
+namespace Org.Edgerunner.Dice.Rolling.Options.Types
 {
    /// <summary>
-   /// Interface that defines a roll-able polygon of some sort
+   /// Class that identifies a dice exploding dice roll option.
    /// </summary>
-   public interface IRollable
+   public class DiceOptionExplode : DiceRollOption
    {
-      /// <summary>
-      /// Gets the number of sides.
-      /// </summary>
-      /// <value>The number of sides.</value>
-      int Sides { get; }
-
-      /// <summary>
-      /// Rolls this polygon instance.
-      /// </summary>
-      /// <returns>An <see cref="System.Int32"/> that represents the rolled value.</returns>
-      int Roll();
+      /// <inheritdoc />
+      public override Type OptionType => typeof(DiceOptionExplode);
    }
 }

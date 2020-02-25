@@ -18,7 +18,7 @@
 
 using System;
 
-namespace Org.Edgerunner.Dice.Types
+namespace Org.Edgerunner.Dice.Core
 {
    public class Modifier
    {

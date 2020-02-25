@@ -21,7 +21,8 @@ using System.Collections.Generic;
 
 using FluentAssertions;
 
-using Org.Edgerunner.Dice.Types.Interfaces;
+using Org.Edgerunner.Dice.Core.Interfaces;
+using Org.Edgerunner.Dice.Factory;
 
 using Xbehave;
 

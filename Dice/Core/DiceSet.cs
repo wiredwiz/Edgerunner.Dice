@@ -21,19 +21,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using Org.Edgerunner.Dice.Core.Interfaces;
 using Org.Edgerunner.Dice.Exceptions;
 using Org.Edgerunner.Dice.Rolling;
 using Org.Edgerunner.Dice.Rolling.Interfaces;
-using Org.Edgerunner.Dice.Types.Interfaces;
 
-namespace Org.Edgerunner.Dice.Types
+namespace Org.Edgerunner.Dice.Core
 {
    /// <summary>
    /// Class representing a set of dice.
-   /// Implements the <see cref="Org.Edgerunner.Dice.Types.Interfaces.IDiceSet" />
+   /// Implements the <see cref="IDiceSet" />
    /// </summary>
-   /// <seealso cref="Org.Edgerunner.Dice.Types.Interfaces.IDiceSet" />
-   /// <seealso cref="Org.Edgerunner.Dice.Types.Interfaces.IDie" />
+   /// <seealso cref="IDiceSet" />
+   /// <seealso cref="IDie" />
    public class DiceSet : IDiceSet
    {
       private readonly List<IDie> _Storage;
@@ -194,9 +194,9 @@ namespace Org.Edgerunner.Dice.Types
 
       /// <inheritdoc/>
       public IDiceRollOptions RollOptions { get; set; }
-
+      
       /// <inheritdoc/>
-      public IDiceRollResult Roll()
+      public IList<IDieRollResult> Roll()
       {
          throw new System.NotImplementedException();
       }

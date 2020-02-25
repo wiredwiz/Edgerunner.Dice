@@ -1,5 +1,5 @@
 ﻿#region Apache License 2.0
-// <copyright file="DiceOptionExplode.cs" company="Edgerunner.org">
+// <copyright file="Operation.cs" company="Edgerunner.org">
 // Copyright 2020 Thaddeus Ryker
 // </copyright>
 // 
@@ -19,9 +19,14 @@
 namespace Org.Edgerunner.Dice.Rolling.Options
 {
    /// <summary>
-   /// Class that identifies a dice exploding dice roll option.
+   /// Enumeration of the different die comparison operations.
    /// </summary>
-   public class DiceOptionExplode
-   {      
+   public enum DieComparisonOperation
+   {
+      // ReSharper disable StyleCop.SA1602
+      LessThanOrEqualTo,
+      EqualTo,
+      GreaterThanOrEqualTo
+      // ReSharper restore StyleCop.SA1602
    }
 }

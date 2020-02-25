@@ -16,7 +16,7 @@
 // limitations under the License.
 #endregion
 
-namespace Org.Edgerunner.Dice.Rolling.Options
+namespace Org.Edgerunner.Dice.Rolling.Options.Types
 {
    /// <summary>
    /// Class that identifies an explosion maximum dice roll option.

@@ -47,7 +47,7 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// Gets the sets of result dice matches.
       /// </summary>
       /// <value>The logical dice.</value>
-      IList<IDieRollResult> DiceMatches { get; }
+      IList<IDieRollResult> MatchingDiceSets { get; }
 
       /// <summary>
       /// Gets the discarded dice.
@@ -66,5 +66,16 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// </summary>
       /// <value>The total value.</value>
       int TotalValue { get; }
+
+      /// <summary>
+      /// Overrides the total value of the roll with a new value.
+      /// </summary>
+      /// <param name="newValue">The new value to override with.</param>
+      void OverrideTotalValue(decimal? newValue);
+
+      /// <summary>
+      /// Clears any existing override of the total value.
+      /// </summary>
+      void ClearOverride();
    }
 }

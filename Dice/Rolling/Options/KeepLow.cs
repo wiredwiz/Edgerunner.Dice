@@ -16,12 +16,38 @@
 // limitations under the License.
 #endregion
 
+using System.Collections.Generic;
+using System.Linq;
+
+using Org.Edgerunner.Dice.Rolling.Interfaces;
+using Org.Edgerunner.Dice.Rolling.Options.Types;
+
 namespace Org.Edgerunner.Dice.Rolling.Options
 {
    /// <summary>
    /// Class that identifies a "keep low" dice roll option.
    /// </summary>
-   public class KeepLow
+   public class KeepLow : DiceOptionDropKeep
    {
+      private readonly int _NumberToKeep;
+
+      /// <summary>
+      /// Initializes a new instance of the <see cref="KeepLow"/> class.
+      /// </summary>
+      /// <param name="numberToKeep">The number to keep.</param>
+      public KeepLow(int numberToKeep)
+      {
+         _NumberToKeep = numberToKeep;
+      }
+
+      /// <inheritdoc />
+      public override void ExecuteDropKeepLogic(IEnumerable<IDieRollResult> result)
+      {
+         var dice = (from die in result
+                    orderby die.RolledNumber descending
+                    select die).ToList();
+
+         for (int i = 0; i < dice.Count - _NumberToKeep; i++) dice[i].WasDiscarded = true;
+      }
    }
 }

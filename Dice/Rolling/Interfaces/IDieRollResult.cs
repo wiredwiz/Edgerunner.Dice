@@ -16,7 +16,7 @@
 // limitations under the License.
 #endregion
 
-using Org.Edgerunner.Dice.Types.Interfaces;
+using Org.Edgerunner.Dice.Core.Interfaces;
 
 namespace Org.Edgerunner.Dice.Rolling.Interfaces
 {
@@ -39,16 +39,16 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       bool WasDiscarded { get; set; }
 
       /// <summary>
-      /// Gets or sets the next rolled die roll.
+      /// Gets or sets the next instance of this same die being rolled again.
       /// </summary>
-      /// <value>The next roll.</value>
+      /// <value>The next <see cref="IDieRollResult"/>.</value>
       IDieRollResult NextRoll { get; set; }
 
       /// <summary>
-      /// Gets or sets a value indicating whether the roll is success driven.
+      /// Gets or sets a value indicating whether the roll is tracking successes.
       /// </summary>
-      /// <value><c>true</c> if the roll is success driven; otherwise, <c>false</c>.</value>
-      bool SuccessDriven { get; set; }
+      /// <value><c>true</c> if the roll is tracking successes; otherwise, <c>false</c>.</value>
+      bool UseSuccesses { get; set; }
 
       /// <summary>
       /// Gets or sets a value indicating whether this instance is critical a success.
@@ -61,6 +61,12 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// </summary>
       /// <value><c>true</c> if this instance is a critical failure; otherwise, <c>false</c>.</value>
       bool IsCriticalFailure { get; set; }
+
+      /// <summary>
+      /// Gets or sets a value indicating whether this instance is compounding.
+      /// </summary>
+      /// <value><c>true</c> if this instance is compounding; otherwise, <c>false</c>.</value>
+      bool IsCompounding { get; set; }
 
       /// <summary>
       /// Gets or sets the rolled die number.
@@ -79,5 +85,17 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// </summary>
       /// <returns>The new <see cref="IDieRollResult"/>.</returns>
       IDieRollResult ReRoll();
+
+      /// <summary>
+      /// Rolls this die again and links the new roll to this instance as an exploding die.
+      /// </summary>
+      /// <returns>The new <see cref="IDieRollResult"/>.</returns>
+      IDieRollResult Explode();
+
+      /// <summary>
+      /// Rolls this die again and links the new roll to this instance as an compounded exploding die.
+      /// </summary>
+      /// <returns>The new <see cref="IDieRollResult"/>.</returns>
+      IDieRollResult ExplodeCompounding();
    }
 }

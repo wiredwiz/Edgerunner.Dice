@@ -16,9 +16,9 @@
 // limitations under the License.
 #endregion
 
-using Org.Edgerunner.Dice.Types.Interfaces;
+using Org.Edgerunner.Dice.Core.Interfaces;
 
-namespace Org.Edgerunner.Dice.Types
+namespace Org.Edgerunner.Dice.Core
 {
    /// <summary>
    /// Class that represents a modifier to a single die.
