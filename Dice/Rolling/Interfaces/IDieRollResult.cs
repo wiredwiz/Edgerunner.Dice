@@ -97,5 +97,11 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// </summary>
       /// <returns>The new <see cref="IDieRollResult"/>.</returns>
       IDieRollResult ExplodeCompounding();
+
+      /// <summary>
+      /// Rolls this die again and links the new roll to this instance as an penetrating exploding die.
+      /// </summary>
+      /// <returns>The new <see cref="IDieRollResult"/>.</returns>
+      IDieRollResult ExplodePenetrating();
    }
 }

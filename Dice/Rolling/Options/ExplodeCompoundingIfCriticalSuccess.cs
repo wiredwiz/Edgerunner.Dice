@@ -29,13 +29,6 @@ namespace Org.Edgerunner.Dice.Rolling.Options
    /// <seealso cref="DiceOptionExplode" />
    public class ExplodeCompoundingIfCriticalSuccess : DiceOptionExplode
    {
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ExplodeCompoundingIfCriticalSuccess" /> class.
-      /// </summary>
-      public ExplodeCompoundingIfCriticalSuccess()
-      {
-      }
-
       /// <inheritdoc />
       public override IEnumerable<IDieRollResult> ExecuteAdditionalRollLogic(IEnumerable<IDieRollResult> result)
       {
@@ -48,12 +41,31 @@ namespace Org.Edgerunner.Dice.Rolling.Options
       }
 
       /// <inheritdoc />
-      public override void ExecuteRollStatusUpdateLogic(IEnumerable<IDieRollResult> result)
+      public override IEnumerable<IDieRollResult> ExecuteVirtualDiceCreationLogic(IEnumerable<IDieRollResult> initialDiceResults)
       {
-         foreach (var die in result)
-         {
-            
-         }
+         var virtualDice = new List<IDieRollResult>();
+         var totalValue = 0;
+         var compoundingFound = false;
+         foreach (var die in initialDiceResults)
+            if (die.NextRoll != null)
+            {
+               var workingDie = die;
+               while (workingDie != null)
+               {
+                  if (!workingDie.WasDiscarded && workingDie.IsCompounding)
+                  {
+                     compoundingFound = compoundingFound || workingDie.IsCompounding;
+                     totalValue += workingDie.Value;
+                  }
+
+                  workingDie = workingDie.NextRoll;
+               }
+
+               if (compoundingFound)
+                  virtualDice.Add(new VirtualDieRollResult(die.Die, totalValue, true, false));
+            }
+
+         return virtualDice;
       }
    }
 }

@@ -73,9 +73,9 @@ namespace Org.Edgerunner.Dice.Rolling
       }
 
       /// <inheritdoc/>
-      public virtual IDiceRollResult ExecutePostRollResultCalculation(IDiceRollResult result)
+      public virtual IEnumerable<IDieRollResult> ExecuteVirtualDiceCreationLogic(IEnumerable<IDieRollResult> initialDiceResults)
       {
-         return result;
+         return null;
       }
    }
 }

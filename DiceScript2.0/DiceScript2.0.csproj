@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>DiceScript2._0</RootNamespace>
-    <AssemblyVersion>1.0.20052.1</AssemblyVersion>
-    <FileVersion>1.0.20052.1</FileVersion>
+    <AssemblyVersion>1.0.20057.0</AssemblyVersion>
+    <FileVersion>1.0.20057.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

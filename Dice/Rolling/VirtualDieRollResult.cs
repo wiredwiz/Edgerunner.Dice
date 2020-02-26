@@ -17,6 +17,7 @@
 #endregion
 
 using Org.Edgerunner.Dice.Core.Interfaces;
+using Org.Edgerunner.Dice.Exceptions;
 using Org.Edgerunner.Dice.Rolling.Interfaces;
 
 namespace Org.Edgerunner.Dice.Rolling
@@ -37,19 +38,20 @@ namespace Org.Edgerunner.Dice.Rolling
       private bool _IsCriticalSuccess;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="VirtualDieRollResult"/> class.
+      /// Initializes a new instance of the <see cref="VirtualDieRollResult" /> class.
       /// </summary>
       /// <param name="die">The die.</param>
       /// <param name="rolledNumber">The rolled number.</param>
-      public VirtualDieRollResult(IDie die, int rolledNumber)
+      /// <param name="criticalSuccess">if set to <c>true</c> the result is marked as a critical success.</param>
+      /// <param name="criticalFailure">if set to <c>true</c> the result is marked as a critical failure.</param>
+      // ReSharper disable once TooManyDependencies
+      public VirtualDieRollResult(IDie die, int rolledNumber, bool criticalSuccess, bool criticalFailure)
       {
          Die = die;
          _RolledNumber = rolledNumber;
          _Value = rolledNumber;
-         if (rolledNumber == 1)
-            _IsCriticalFailure = true;
-         if (rolledNumber == die.Sides)
-            _IsCriticalSuccess = true;
+         _IsCriticalFailure = criticalFailure;
+         _IsCriticalSuccess = criticalSuccess;
       }
 
       /// <inheritdoc/>
@@ -96,30 +98,31 @@ namespace Org.Edgerunner.Dice.Rolling
       }
 
       /// <inheritdoc/>
+      /// <exception cref="T:Org.Edgerunner.Dice.Exceptions.DiceOperationException">Virtual dice cannot be re-rolled.</exception>
       public virtual IDieRollResult ReRoll()
       {
-         var newResult = new DieRollResult(Die, Die.Roll());
-         WasDiscarded = true;
-         NextRoll = newResult;
-         return newResult;
+         throw new DiceOperationException("Virtual dice cannot be re-rolled.");
       }
 
       /// <inheritdoc/>
+      /// <exception cref="T:Org.Edgerunner.Dice.Exceptions.DiceOperationException">Virtual dice cannot explode.</exception>
       public virtual IDieRollResult Explode()
       {
-         var newResult = new DieRollResult(Die, Die.Roll());
-         NextRoll = newResult;
-         return newResult;
+         throw new DiceOperationException("Virtual dice cannot explode.");
       }
 
       /// <inheritdoc/>
+      /// <exception cref="T:Org.Edgerunner.Dice.Exceptions.DiceOperationException">Virtual dice cannot compound.</exception>
       public virtual IDieRollResult ExplodeCompounding()
       {
-         var newResult = new DieRollResult(Die, Die.Roll());
-         IsCompounding = true;
-         newResult.IsCompounding = true;
-         NextRoll = newResult;
-         return newResult;
+         throw new DiceOperationException("Virtual dice cannot compound.");
+      }
+
+      /// <inheritdoc/>
+      /// <exception cref="T:Org.Edgerunner.Dice.Exceptions.DiceOperationException">Virtual dice cannot penetrate.</exception>
+      public IDieRollResult ExplodePenetrating()
+      {
+         throw new DiceOperationException("Virtual dice cannot penetrate.");
       }
    }
 }

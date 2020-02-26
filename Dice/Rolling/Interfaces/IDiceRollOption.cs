@@ -74,13 +74,10 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       void ExecuteDropKeepLogic(IEnumerable<IDieRollResult> results);
 
       /// <summary>
-      /// Executes the option logic that should occur after calculation of the entire roll has finished being calculated.
+      /// Executes option logic that should create any virtual dice.
       /// </summary>
-      /// <param name="result">The result to operate on.</param>
-      /// <returns>The <see cref="IDiceRollResult"/> that was passed in.</returns>
-      /// <remarks>
-      /// This method is the last method in the option pipeline to occur and is typically only used to override the total result.
-      /// </remarks>
-      IDiceRollResult ExecutePostRollResultCalculation(IDiceRollResult result);
+      /// <param name="initialDiceResults">The results of the initial dice that were rolled.</param>
+      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing any new virtual dice that were constructed or a <see langword="null" /> value if no dice were built.</returns>
+      IEnumerable<IDieRollResult> ExecuteVirtualDiceCreationLogic(IEnumerable<IDieRollResult> initialDiceResults);
    }
 }

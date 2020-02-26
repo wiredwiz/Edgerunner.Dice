@@ -121,5 +121,16 @@ namespace Org.Edgerunner.Dice.Rolling
          NextRoll = newResult;
          return newResult;
       }
+
+      /// <inheritdoc/>
+      public IDieRollResult ExplodePenetrating()
+      {
+         var newResult = new DieRollResult(Die, Die.Roll());
+         IsCompounding = true;
+         newResult.IsCompounding = true;
+         newResult.Value -= 1;
+         NextRoll = newResult;
+         return newResult;
+      }
    }
 }
