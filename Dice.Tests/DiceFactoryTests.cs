@@ -46,7 +46,7 @@ namespace Org.Edgerunner.Dice.Tests
       [Example(0, 6)]
       [Example(-1, 6)]
       [Example(-2, 8)]
-      public void TestInvalidDiceQuantityThrowsException(int diceCount, int dieSides, IDiceFactory factory, IList<IDie> dice, Action act)
+      public void TestInvalidDiceQuantityThrowsException(int diceCount, int dieSides, IDiceFactory factory, IDiceSet dice, Action act)
       {
          "Given a new dice factory"
             .x(() => factory = new DiceFactory());
@@ -71,7 +71,7 @@ namespace Org.Edgerunner.Dice.Tests
       [Example(1, 0)]
       [Example(12, 1)]
       [Example(30, -1)]
-      public void TestInvalidDiceSidesThrowsException(int diceCount, int dieSides, IDiceFactory factory, IList<IDie> dice, Action act)
+      public void TestInvalidDiceSidesThrowsException(int diceCount, int dieSides, IDiceFactory factory, IDiceSet dice, Action act)
       {
          "Given a new dice factory"
             .x(() => factory = new DiceFactory());
@@ -82,6 +82,52 @@ namespace Org.Edgerunner.Dice.Tests
          "Should throw an exception"
             .x(() => act.Should().Throw<ArgumentOutOfRangeException>()
             .WithMessage("must be 2 or greater.\r\nParameter name: faces"));
+      }
+      
+      /// <summary>
+      /// Tests that a valid number of dice and sides, sent to the dice factory, generates dice with the correct number of sides.
+      /// </summary>
+      /// <param name="diceCount">The number of dice to create.</param>
+      /// <param name="dieSides">The number of sides each of the dice should have.</param>
+      /// <param name="factory">The created dice factory.</param>
+      /// <param name="dice">The created dice.</param>
+      [Scenario]
+      [Example(1, 6)]
+      [Example(2, 8)]
+      [Example(22, 12)]
+      public void TestFactoryCreatesDiceWithTheCorrectNumberOfSides(int diceCount, int dieSides, IDiceFactory factory, IDiceSet dice)
+      {
+         "Given a new dice factory"
+            .x(() => factory = new DiceFactory());
+
+         "Creating a list of dice with a valid quantity and number of sides"
+            .x(() => dice = factory.Create(diceCount, dieSides));
+
+         "Produces dice with the correct number of sides"
+            .x(() => dice.Sides.Should().Be(dieSides));
+      }
+
+      /// <summary>
+      /// Tests that a valid number of dice and sides, sent to the dice factory, generates the correct quantity of dice.
+      /// </summary>
+      /// <param name="diceCount">The number of dice to create.</param>
+      /// <param name="dieSides">The number of sides each of the dice should have.</param>
+      /// <param name="factory">The created dice factory.</param>
+      /// <param name="dice">The created dice.</param>
+      [Scenario]
+      [Example(1, 6)]
+      [Example(2, 8)]
+      [Example(22, 12)]
+      public void TestFactoryCreatesTheCorrectQuantityOfDice(int diceCount, int dieSides, IDiceFactory factory, IDiceSet dice)
+      {
+         "Given a new dice factory"
+            .x(() => factory = new DiceFactory());
+
+         "Creating a list of dice with a valid quantity and number of sides"
+            .x(() => dice = factory.Create(diceCount, dieSides));
+
+         "Produces the correct quantity of dice"
+            .x(() => dice.Count.Should().Be(diceCount));
       }
    }
 }

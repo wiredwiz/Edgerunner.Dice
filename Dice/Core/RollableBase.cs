@@ -16,8 +16,12 @@
 // limitations under the License.
 #endregion
 
+using System.Collections.Generic;
+
 using Org.Edgerunner.Dice.Core.Interfaces;
 using Org.Edgerunner.Dice.Random;
+using Org.Edgerunner.Dice.Rolling;
+using Org.Edgerunner.Dice.Rolling.Interfaces;
 
 namespace Org.Edgerunner.Dice.Core
 {
@@ -34,8 +38,14 @@ namespace Org.Edgerunner.Dice.Core
       public abstract int Sides { get; }
 
       /// <inheritdoc/>
+      public abstract IDieRollResult Roll();
+
+      /// <summary>
+      /// Generates the rolled number.
+      /// </summary>
+      /// <returns>The <see cref="System.Int32"/>.</returns>
       /// <exception cref="T:System.Security.Cryptography.CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-      public virtual int Roll()
+      protected virtual int GenerateRolledNumber()
       {
          return NumberGenerator.Instance.Next(1, Sides + 1);
       }

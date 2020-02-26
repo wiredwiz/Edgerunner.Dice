@@ -1,5 +1,5 @@
 ﻿#region Apache License 2.0
-// <copyright file="ExplodeCompoundingIfCriticalSuccess.cs" company="Edgerunner.org">
+// <copyright file="ExplodePenetratingIfCriticalSuccess.cs" company="Edgerunner.org">
 // Copyright 2020 Thaddeus Ryker
 // </copyright>
 // 
@@ -17,17 +17,18 @@
 #endregion
 
 using System.Collections.Generic;
+
 using Org.Edgerunner.Dice.Rolling.Interfaces;
 using Org.Edgerunner.Dice.Rolling.Options.Types;
 
 namespace Org.Edgerunner.Dice.Rolling.Options
 {
    /// <summary>
-   /// Class that represents a dice rolling option for exploding compounding dice when the result is a critical success.
+   /// Class that represents a dice rolling option for exploding penetrating dice when the result is a critical success.
    /// Implements the <see cref="DiceOptionExplode" />
    /// </summary>
    /// <seealso cref="DiceOptionExplode" />
-   public class ExplodeCompoundingIfCriticalSuccess : DiceOptionExplode
+   public class ExplodePenetratingIfCriticalSuccess : DiceOptionExplode
    {
       /// <inheritdoc />
       public override IEnumerable<IDieRollResult> ExecuteAdditionalRollLogic(IEnumerable<IDieRollResult> result)
@@ -35,7 +36,7 @@ namespace Org.Edgerunner.Dice.Rolling.Options
          var additional = new List<IDieRollResult>();
          foreach (var die in result)
             if (die.IsCriticalSuccess)
-               additional.Add(die.ExplodeCompounding());
+               additional.Add(die.ExplodePenetrating());
 
          return additional;
       }

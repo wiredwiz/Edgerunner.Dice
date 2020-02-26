@@ -32,9 +32,9 @@ namespace Org.Edgerunner.Dice.Rolling
 
       private int _RolledNumber;
 
-      private bool _IsCriticalFailure;
+      private bool _CriticalFailure;
 
-      private bool _IsCriticalSuccess;
+      private bool _CriticalSuccess;
 
       /// <summary>
       /// Initializes a new instance of the <see cref="DieRollResult"/> class.
@@ -47,9 +47,25 @@ namespace Org.Edgerunner.Dice.Rolling
          _RolledNumber = rolledNumber;
          _Value = rolledNumber;
          if (rolledNumber == 1)
-            _IsCriticalFailure = true;
+            _CriticalFailure = true;
          if (rolledNumber == die.Sides)
-            _IsCriticalSuccess = true;
+            _CriticalSuccess = true;
+      }
+
+      /// <summary>
+      /// Initializes a new instance of the <see cref="DieRollResult" /> class.
+      /// </summary>
+      /// <param name="die">The die.</param>
+      /// <param name="rolledNumber">The rolled number.</param>
+      /// <param name="criticalSuccess">if set to <c>true</c> roll result is a critical success.</param>
+      /// <param name="criticalFailure">if set to <c>true</c> roll result is a critical failure.</param>
+      public DieRollResult(IDie die, int rolledNumber, bool criticalSuccess, bool criticalFailure)
+      {
+         Die = die;
+         _RolledNumber = rolledNumber;
+         _Value = rolledNumber;
+         _CriticalFailure = criticalFailure;
+         _CriticalSuccess = criticalSuccess;
       }
 
       /// <inheritdoc/>
@@ -67,15 +83,15 @@ namespace Org.Edgerunner.Dice.Rolling
       /// <inheritdoc/>
       public virtual bool IsCriticalSuccess
       {
-         get => _IsCriticalSuccess;
-         set => _IsCriticalSuccess = value;
+         get => _CriticalSuccess;
+         set => _CriticalSuccess = value;
       }
 
       /// <inheritdoc/>
       public virtual bool IsCriticalFailure
       {
-         get => _IsCriticalFailure;
-         set => _IsCriticalFailure = value;
+         get => _CriticalFailure;
+         set => _CriticalFailure = value;
       }
 
       /// <inheritdoc/>
@@ -98,7 +114,7 @@ namespace Org.Edgerunner.Dice.Rolling
       /// <inheritdoc/>
       public virtual IDieRollResult ReRoll()
       {
-         var newResult = new DieRollResult(Die, Die.Roll());
+         var newResult = Die.Roll();
          WasDiscarded = true;
          NextRoll = newResult;
          return newResult;
@@ -107,7 +123,7 @@ namespace Org.Edgerunner.Dice.Rolling
       /// <inheritdoc/>
       public virtual IDieRollResult Explode()
       {
-         var newResult = new DieRollResult(Die, Die.Roll());
+         var newResult = Die.Roll();
          NextRoll = newResult;
          return newResult;
       }
@@ -115,21 +131,21 @@ namespace Org.Edgerunner.Dice.Rolling
       /// <inheritdoc/>
       public virtual IDieRollResult ExplodeCompounding()
       {
-         var newResult = new DieRollResult(Die, Die.Roll());
+         var newResult = Die.Roll();
          IsCompounding = true;
-         newResult.IsCompounding = true;
          NextRoll = newResult;
+         newResult.IsCompounding = true;
          return newResult;
       }
 
       /// <inheritdoc/>
       public IDieRollResult ExplodePenetrating()
       {
-         var newResult = new DieRollResult(Die, Die.Roll());
+         var newResult = Die.Roll();
          IsCompounding = true;
+         NextRoll = newResult;
          newResult.IsCompounding = true;
          newResult.Value -= 1;
-         NextRoll = newResult;
          return newResult;
       }
    }

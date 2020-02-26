@@ -18,6 +18,8 @@
 
 using System.Collections.Generic;
 
+using JetBrains.Annotations;
+
 using Org.Edgerunner.Dice.Core.Interfaces;
 
 namespace Org.Edgerunner.Dice.Factory
@@ -31,15 +33,22 @@ namespace Org.Edgerunner.Dice.Factory
       /// Creates a list of dice corresponding to the supplied dice code.
       /// </summary>
       /// <param name="diceCode">The dice code.</param>
-      /// <returns>A new <see cref="List{IDie}"/>.</returns>
-      IList<IDie> Create(string diceCode);
+      /// <returns>A new <see cref="IDiceSet"/>.</returns>
+      IDiceSet Create([NotNull] string diceCode);
 
       /// <summary>
-      /// Creates a list of dice corresponding to the supplied dice code.
+      /// Creates a list of dice corresponding to the supplied dice parameters.
       /// </summary>
       /// <param name="quantity">The quantity of dice to create.</param>
       /// <param name="faces">The number of faces each die should have.</param>
-      /// <returns>A new <see cref="List{IDie}" />.</returns>
-      IList<IDie> Create(int quantity, int faces);
+      /// <returns>A new <see cref="IDiceSet" />.</returns>
+      IDiceSet Create(int quantity, int faces);
+
+      /// <summary>
+      /// Creates a list of Fate dice corresponding to the supplied dice quantity.
+      /// </summary>
+      /// <param name="quantity">The quantity of dice to create.</param>
+      /// <returns>A new <see cref="IDiceSet" />.</returns>
+      IDiceSet CreateFate(int quantity);
    }
 }

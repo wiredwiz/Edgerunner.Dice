@@ -1,5 +1,5 @@
-#region Apache License 2.0
-// <copyright file="IRollable.cs" company="Edgerunner.org">
+﻿#region Apache License 2.0
+// <copyright file="IRollableSet.cs" company="Edgerunner.org">
 // Copyright  Thaddeus Ryker
 // </copyright>
 // 
@@ -16,6 +16,8 @@
 // limitations under the License.
 #endregion
 
+using System.Collections.Generic;
+
 using JetBrains.Annotations;
 
 using Org.Edgerunner.Dice.Rolling.Interfaces;
@@ -23,9 +25,9 @@ using Org.Edgerunner.Dice.Rolling.Interfaces;
 namespace Org.Edgerunner.Dice.Core.Interfaces
 {
    /// <summary>
-   /// Interface that defines a single roll-able die.
+   /// Interface that defines a set of one or more roll-able dice with the same number of sides.
    /// </summary>
-   public interface IRollable
+   public interface IRollableSet
    {
       /// <summary>
       /// Gets the number of sides.
@@ -34,10 +36,10 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       int Sides { get; }
 
       /// <summary>
-      /// Rolls this die instance.
+      /// Rolls this set of dice.
       /// </summary>
-      /// <returns>A new <see cref="IDieRollResult"/>.</returns>
+      /// <returns>A new <see cref="IEnumerable{IDieRollResult}"/> containing the results of any rolled dice.</returns>
       [NotNull]
-      IDieRollResult Roll();
+      IEnumerable<IDieRollResult> Roll();
    }
 }

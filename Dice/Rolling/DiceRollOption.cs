@@ -35,11 +35,6 @@ namespace Org.Edgerunner.Dice.Rolling
       public virtual Type OptionType { get; }
 
       /// <inheritdoc/>
-      public virtual void ExecutePostRollLogic(IEnumerable<IDieRollResult> result)
-      {
-      }
-
-      /// <inheritdoc/>
       public virtual bool AllowReRoll(IDieRollResult result)
       {
          return true;

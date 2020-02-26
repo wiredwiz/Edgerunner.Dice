@@ -19,6 +19,8 @@
 using System;
 using System.Collections.Generic;
 
+using JetBrains.Annotations;
+
 using Org.Edgerunner.Dice.Core;
 using Org.Edgerunner.Dice.Core.Interfaces;
 using Org.Edgerunner.Dice.Exceptions;
@@ -36,17 +38,23 @@ namespace Org.Edgerunner.Dice.Factory
 
       /// <inheritdoc/>
       /// <exception cref="T:Org.Edgerunner.Dice.Exceptions.DieCodeException">The dice code was unrecognized.</exception>
-      public virtual IList<IDie> Create(string diceCode)
+      /// <exception cref="T:System.ArgumentNullException"><paramref name="diceCode"/> is <see langword="null"/> or empty</exception>
+      public virtual IDiceSet Create(string diceCode)
       {
+         if (string.IsNullOrEmpty(diceCode)) throw new ArgumentNullException(nameof(diceCode));
+
          if (!ParseDieCode(diceCode, out var quantity, out var faces))
             throw new DieCodeException($"\"{diceCode}\" is not a recognized dice code");
+
+         if (faces == 0)
+            return CreateFate(quantity);
 
          return Create(quantity, faces);
       }
 
       /// <inheritdoc/>
       /// <exception cref="T:System.ArgumentOutOfRangeException">Quantity is less than 1 or faces is less than 2.</exception>
-      public virtual IList<IDie> Create(int quantity, int faces)
+      public virtual IDiceSet Create(int quantity, int faces)
       {
          if (quantity < 1)
             throw new ArgumentOutOfRangeException(nameof(quantity), "must be greater than 0.");
@@ -60,6 +68,18 @@ namespace Org.Edgerunner.Dice.Factory
          for (int i = 0; i < quantity; i++)
             dice.Add(new Die(faces));
 
+         return new DiceSet(dice);
+      }
+
+      /// <inheritdoc/>
+      public IDiceSet CreateFate(int quantity)
+      {
+         var dice = new DiceSet();
+
+         for (int i = 0; i < quantity; i++)
+            // ReSharper disable once ExceptionNotDocumented
+            dice.Add(new FateDie());
+
          return dice;
       }
 
@@ -72,13 +92,25 @@ namespace Org.Edgerunner.Dice.Factory
       /// <param name="quantity">The quantity of dice to roll.</param>
       /// <param name="faces">The number of faces each die has.</param>
       /// <returns><c>true</c> if the dice code parses correctly, <c>false</c> otherwise.</returns>
-      protected virtual bool ParseDieCode(string diceCode, out int quantity, out int faces)
+      /// <remarks>In the case of Fate dice, the <paramref name="faces"/> is returned as 0.</remarks>
+      protected virtual bool ParseDieCode([NotNull] string diceCode, out int quantity, out int faces)
       {
          quantity = 1;
          faces = 0;
-         var index = diceCode.IndexOf('d');
 
-         if ((index == -1) || (index == (diceCode.Length - 1)))
+         var fate = false;
+
+         if (string.IsNullOrEmpty(diceCode))
+            return false;
+
+         var index = diceCode.LastIndexOf("df", 0, StringComparison.InvariantCultureIgnoreCase);
+
+         if (index == diceCode.Length - 2)
+            fate = true;
+         else
+            index = diceCode.IndexOf('d');
+
+         if (index == -1)
             return false;
 
          if (index != 0)
@@ -86,10 +118,22 @@ namespace Org.Edgerunner.Dice.Factory
             var quantityText = diceCode.Substring(0, index);
             if (!int.TryParse(quantityText, out quantity))
                return false;
+
+            if (quantity < 1)
+               return false;
          }
 
+         if (fate)
+            return true;
+
          var facesText = diceCode.Substring(index + 1);
-         return int.TryParse(facesText, out faces);
+         if (!int.TryParse(facesText, out faces))
+            return false;
+
+         if (faces < 2)
+            return false;
+
+         return true;
       }
    }
 }

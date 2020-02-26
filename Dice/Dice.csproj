@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.20057.0</AssemblyVersion>
-    <FileVersion>1.0.20057.0</FileVersion>
+    <AssemblyVersion>1.0.20057.8</AssemblyVersion>
+    <FileVersion>1.0.20057.8</FileVersion>
     <AssemblyName>Edgerunner.Dice</AssemblyName>
     <RootNamespace>Org.Edgerunner.Dice</RootNamespace>
     <PackageId>Org.Edgerunner.Dice</PackageId>
@@ -12,5 +12,9 @@
     <Description>A dice library to simulate a multitude of dice rolls.</Description>
     <Copyright>2020</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
+  </ItemGroup>
 
 </Project>

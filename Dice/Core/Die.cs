@@ -19,7 +19,12 @@
 using System;
 using System.Collections.Generic;
 
+using JetBrains.Annotations;
+
 using Org.Edgerunner.Dice.Core.Interfaces;
+using Org.Edgerunner.Dice.Random;
+using Org.Edgerunner.Dice.Rolling;
+using Org.Edgerunner.Dice.Rolling.Interfaces;
 
 namespace Org.Edgerunner.Dice.Core
 {
@@ -28,6 +33,7 @@ namespace Org.Edgerunner.Dice.Core
    /// Implements the <see cref="RollableBase" />
    /// </summary>
    /// <seealso cref="RollableBase" />
+   /// <seealso cref="IDie"/>
    public class Die : RollableBase, IDie
    {
       #region Constructors/Destructors/Disposal
@@ -84,6 +90,14 @@ namespace Org.Edgerunner.Dice.Core
 
       /// <inheritdoc/>
       public virtual Modifier Modifier { get; set; }
+
+      /// <inheritdoc/>
+      /// <exception cref="T:System.Security.Cryptography.CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+      public override IDieRollResult Roll()
+      {
+         var roll = GenerateRolledNumber();
+         return new DieRollResult(this, roll);
+      }
 
       /// <inheritdoc/>
       public virtual Modifier Add(int value)

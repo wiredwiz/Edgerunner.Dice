@@ -18,25 +18,22 @@
 
 using System.Collections.Generic;
 
-using Org.Edgerunner.Dice.Core.Interfaces;
+using JetBrains.Annotations;
 
-namespace Org.Edgerunner.Dice.Rolling.Interfaces
+using Org.Edgerunner.Dice.Rolling.Interfaces;
+
+namespace Org.Edgerunner.Dice.Core.Interfaces
 {
    /// <summary>
    /// Interface representing a set of like dice.
    /// </summary>
-   public interface IDiceSet : IList<IDie>
+   public interface IDiceSet : IList<IDie>, IRollableSet
    {
       /// <summary>
       /// Gets or sets the dice roll options.
       /// </summary>
       /// <value>The dice roll options.</value>
+      [NotNull]
       IDiceRollOptions RollOptions { get; set; }
-
-      /// <summary>
-      /// Rolls this instance and returns a list of results.
-      /// </summary>
-      /// <returns>A new <see cref="IList{IDieRollResult}"/> containing the results.</returns>
-      IList<IDieRollResult> Roll();
    }
 }

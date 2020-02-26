@@ -21,6 +21,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using JetBrains.Annotations;
+
 using Org.Edgerunner.Dice.Core.Interfaces;
 using Org.Edgerunner.Dice.Exceptions;
 using Org.Edgerunner.Dice.Rolling;
@@ -38,8 +40,6 @@ namespace Org.Edgerunner.Dice.Core
    {
       private readonly List<IDie> _Storage;
 
-      private int _Sides;
-
       /// <summary>
       /// Initializes a new instance of the <see cref="DiceSet"/> class.
       /// </summary>
@@ -53,8 +53,10 @@ namespace Org.Edgerunner.Dice.Core
       /// Initializes a new instance of the <see cref="DiceSet"/> class.
       /// </summary>
       /// <param name="dice">The dice to initialize the set with.</param>
-      public DiceSet(IEnumerable<IDie> dice)
+      /// <exception cref="T:System.ArgumentNullException"><paramref name="dice"/> is <see langword="null"/></exception>
+      public DiceSet([NotNull] IEnumerable<IDie> dice)
       {
+         if (dice is null) throw new ArgumentNullException(nameof(dice));
          var enumerable = dice as IDie[] ?? dice.ToArray();
          CheckForMismatch(enumerable);
          _Storage = new List<IDie>(enumerable);
@@ -66,9 +68,13 @@ namespace Org.Edgerunner.Dice.Core
       /// </summary>
       /// <param name="dice">The dice to initialize the set with.</param>
       /// <param name="options">The dice roll options to apply.</param>
-      public DiceSet(IEnumerable<IDie> dice, IEnumerable<IDiceRollOption> options)
+      /// <exception cref="T:System.ArgumentNullException"><paramref name="dice"/> or <paramref name="options"/> are <see langword="null"/></exception>
+      public DiceSet([NotNull] IEnumerable<IDie> dice, [NotNull] IEnumerable<IDiceRollOption> options)
       : this(dice)
       {
+         if (dice is null) throw new ArgumentNullException(nameof(dice));
+         if (options is null) throw new ArgumentNullException(nameof(options));
+
          foreach (var option in options) RollOptions.Add(option);
       }
 
@@ -77,28 +83,35 @@ namespace Org.Edgerunner.Dice.Core
       /// </summary>
       /// <param name="dice">The dice to initialize the set with.</param>
       /// <param name="options">The dice roll options to apply.</param>
-      public DiceSet(IEnumerable<IDie> dice, IDiceRollOptions options)
+      /// <exception cref="T:System.ArgumentNullException"><paramref name="dice"/> or <paramref name="options"/> are <see langword="null"/></exception>
+      public DiceSet([NotNull] IEnumerable<IDie> dice, [NotNull] IDiceRollOptions options)
       {
+         if (dice is null) throw new ArgumentNullException(nameof(dice));
+         if (options is null) throw new ArgumentNullException(nameof(options));
+
          var enumerable = dice as IDie[] ?? dice.ToArray();
          CheckForMismatch(enumerable);
          _Storage = new List<IDie>(enumerable);
          RollOptions = options;
       }
 
-      private void CheckForMismatch(IEnumerable<IDie> dice)
+      private void CheckForMismatch([NotNull] IEnumerable<IDie> dice)
       {
+         if (dice is null) throw new ArgumentNullException(nameof(dice));
+
          using (IEnumerator<IDie> enumerator = dice?.GetEnumerator())
          {
-            if (enumerator?.Current != null)
-            {
-               _Sides = enumerator.Current.Sides;
-               while (enumerator.MoveNext())
+            if (enumerator.MoveNext())
+               if (enumerator.Current != null)
                {
-                  if (enumerator.Current != null && _Sides != enumerator.Current.Sides)
-                     throw new DiceMismatchException("A dice set cannot contain dice with differing numbers of sides");
+                  Sides = enumerator.Current.Sides;
+                  while (enumerator.MoveNext())
+                  {
+                     if (enumerator.Current != null && Sides != enumerator.Current.Sides)
+                        throw new DiceMismatchException("A dice set cannot contain dice with differing numbers of sides");
+                  }
                }
-            }
-         }         
+         }
       }
 
       /// <inheritdoc/>
@@ -121,11 +134,11 @@ namespace Org.Edgerunner.Dice.Core
          if (item == null)
             throw new ArgumentNullException(nameof(item));
 
-         if (_Sides == 0)
-            _Sides = item.Sides;
-         else if (_Sides != item.Sides)
+         if (Sides == 0)
+            Sides = item.Sides;
+         else if (Sides != item.Sides)
             throw new DiceMismatchException("A dice set cannot contain dice with differing numbers of sides");
-            
+
          _Storage.Add(item);
       }
 
@@ -133,7 +146,7 @@ namespace Org.Edgerunner.Dice.Core
       public void Clear()
       {
          _Storage.Clear();
-         _Sides = 0;
+         Sides = 0;
       }
 
       /// <inheritdoc/>
@@ -154,7 +167,7 @@ namespace Org.Edgerunner.Dice.Core
          var success = _Storage.Remove(item);
 
          if (_Storage.Count == 0)
-            _Sides = 0;
+            Sides = 0;
 
          return success;
       }
@@ -182,7 +195,7 @@ namespace Org.Edgerunner.Dice.Core
       {
          _Storage.RemoveAt(index);
          if (_Storage.Count == 0)
-            _Sides = 0;
+            Sides = 0;
       }
 
       /// <inheritdoc/>
@@ -194,11 +207,23 @@ namespace Org.Edgerunner.Dice.Core
 
       /// <inheritdoc/>
       public IDiceRollOptions RollOptions { get; set; }
-      
+
       /// <inheritdoc/>
-      public IList<IDieRollResult> Roll()
+      public int Sides { get; private set; }
+
+      /// <inheritdoc/>
+      public IEnumerable<IDieRollResult> Roll()
       {
-         throw new System.NotImplementedException();
+         var result = new IDieRollResult[_Storage.Count];
+         var index = 0;
+
+         foreach (var die in _Storage)
+         {
+            result[index] = die.Roll();
+            index++;
+         }
+
+         return result;
       }
    }
 }

@@ -19,6 +19,8 @@
 using System;
 using System.Security.Cryptography;
 
+using JetBrains.Annotations;
+
 // ReSharper disable ExceptionNotThrown
 namespace Org.Edgerunner.Dice.Random
 {
@@ -58,6 +60,15 @@ namespace Org.Edgerunner.Dice.Random
          _Rand = new System.Random(seed);
       }
 
+      /// <summary>
+      /// Initializes a new instance of the <see cref="NumberGenerator"/> class.
+      /// </summary>
+      /// <param name="seed">The seed to use in the random number generator.</param>
+      public NumberGenerator(int seed)
+      {
+         _Rand = new System.Random(seed);
+      }
+
       #endregion
 
       /// <summary>
@@ -65,8 +76,8 @@ namespace Org.Edgerunner.Dice.Random
       /// </summary>
       /// <value>The current IRandomGenerator instance.</value>
       /// <remarks>If there is no instance currently, then a new instance of the Generator class is initialized</remarks>
-      /// <exception cref="T:System.Security.Cryptography.CryptographicException" accessor="get">The cryptographic service provider (CSP) cannot be acquired.</exception>
-      // ReSharper disable once ExceptionNotDocumented
+      /// <exception cref="T:System.Security.Cryptography.CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+      [NotNull]
       public static IRandomNumberGenerator Instance => _Instance ?? (_Instance = new NumberGenerator());
 
       #region IRandomNumberGenerator Members

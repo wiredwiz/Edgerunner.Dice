@@ -16,6 +16,8 @@
 // limitations under the License.
 #endregion
 
+using JetBrains.Annotations;
+
 using Org.Edgerunner.Dice.Core.Interfaces;
 
 namespace Org.Edgerunner.Dice.Rolling.Interfaces
@@ -31,6 +33,7 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// <value>The die.</value>
       /// <seealso cref="IDie"/>
       /// <seealso cref="Die"/>
+      [NotNull]
       IDie Die { get; }
 
       /// <summary>Gets or sets a value indicating whether this instance was discarded.</summary>
@@ -42,6 +45,7 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// Gets or sets the next instance of this same die being rolled again.
       /// </summary>
       /// <value>The next <see cref="IDieRollResult"/>.</value>
+      [CanBeNull]
       IDieRollResult NextRoll { get; set; }
 
       /// <summary>
@@ -84,24 +88,28 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       /// Re-rolls this die result and links the re-roll to this instance.
       /// </summary>
       /// <returns>The new <see cref="IDieRollResult"/>.</returns>
+      [NotNull]
       IDieRollResult ReRoll();
 
       /// <summary>
       /// Rolls this die again and links the new roll to this instance as an exploding die.
       /// </summary>
       /// <returns>The new <see cref="IDieRollResult"/>.</returns>
+      [NotNull]
       IDieRollResult Explode();
 
       /// <summary>
       /// Rolls this die again and links the new roll to this instance as an compounded exploding die.
       /// </summary>
       /// <returns>The new <see cref="IDieRollResult"/>.</returns>
+      [NotNull]
       IDieRollResult ExplodeCompounding();
 
       /// <summary>
       /// Rolls this die again and links the new roll to this instance as an penetrating exploding die.
       /// </summary>
       /// <returns>The new <see cref="IDieRollResult"/>.</returns>
+      [NotNull]
       IDieRollResult ExplodePenetrating();
    }
 }

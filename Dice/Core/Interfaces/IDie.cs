@@ -16,6 +16,8 @@
 // limitations under the License.
 #endregion
 
+using JetBrains.Annotations;
+
 namespace Org.Edgerunner.Dice.Core.Interfaces
 {
    /// <summary>
@@ -27,18 +29,21 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// Gets the critical success sides.
       /// </summary>
       /// <value>An array of boolean values where the index of a given die side is true if the result would be a critical success.</value>
+      [NotNull]
       bool[] CriticalSuccessSides { get; }
 
       /// <summary>
       /// Gets the critical failure sides.
       /// </summary>
       /// <value>An array of boolean values where the index of a given die side is true if the result would be a critical failure.</value>
+      [NotNull]
       bool[] CriticalFailureSides { get; }
 
       /// <summary>
       /// Gets or sets the die modifier.
       /// </summary>
       /// <value>The die modifier.</value>
+      [CanBeNull]
       Modifier Modifier { get; set; }
 
       /// <summary>
@@ -46,6 +51,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// </summary>
       /// <param name="value">The value to modify by.</param>
       /// <returns>the new <see cref="Die.Modifier"/>.</returns>
+      [NotNull]
       Modifier Add(int value);
 
       /// <summary>
@@ -53,6 +59,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// </summary>
       /// <param name="value">The value to modify by.</param>
       /// <returns>the new <see cref="Die.Modifier"/>.</returns>
+      [NotNull]
       Modifier Subtract(int value);
 
       /// <summary>
@@ -60,6 +67,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// </summary>
       /// <param name="value">The value to modify by.</param>
       /// <returns>the new <see cref="Die.Modifier"/>.</returns>
+      [NotNull]
       Modifier MultiplyBy(int value);
 
       /// <summary>
@@ -67,6 +75,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// </summary>
       /// <param name="value">The value to modify by.</param>
       /// <returns>the new <see cref="Die.Modifier"/>.</returns>
+      [NotNull]
       Modifier DivideBy(int value);
    }
 }
