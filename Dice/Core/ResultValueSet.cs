@@ -27,47 +27,7 @@ namespace Org.Edgerunner.Dice.Core
    /// Implements the <see cref="Org.Edgerunner.Dice.Core.Interfaces.IResultValueSet" />
    /// </summary>
    /// <seealso cref="Org.Edgerunner.Dice.Core.Interfaces.IResultValueSet" />
-   public class ResultValueSet : IResultValueSet
+   public class ResultValueSet : Dictionary<string, int>, IResultValueSet
    {
-      private readonly Dictionary<string, int> _Storage;
-
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ResultValueSet"/> class.
-      /// </summary>
-      public ResultValueSet()
-      {
-         _Storage = new Dictionary<string, int>();
-      }
-
-      /// <inheritdoc/>
-      public int this[string key]
-      {
-         get => _Storage[key];
-         set => _Storage[key] = value;
-      }
-
-      /// <inheritdoc/>
-      public IEnumerable<string> Keys => _Storage.Keys;
-
-      /// <inheritdoc/>
-      public int Count => _Storage.Count;
-
-      /// <inheritdoc/>
-      public bool Remove(string key)
-      {
-         return _Storage.Remove(key);
-      }
-
-      /// <inheritdoc/>
-      public void Add(string key, int value)
-      {
-         _Storage.Add(key, value);
-      }
-
-      /// <inheritdoc/>
-      public void Clear()
-      {
-         _Storage.Clear();
-      }
    }
 }

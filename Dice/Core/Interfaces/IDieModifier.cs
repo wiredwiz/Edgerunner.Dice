@@ -16,6 +16,8 @@
 // limitations under the License.
 #endregion
 
+using JetBrains.Annotations;
+
 namespace Org.Edgerunner.Dice.Core.Interfaces
 {
    /// <summary>
@@ -39,6 +41,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// Gets or sets the next modifier in the operation chain.
       /// </summary>
       /// <value>The next modifier or null if there is not another.</value>
+      [CanBeNull]
       IDieModifier Modifier { get; set; }
 
       /// <summary>
@@ -46,6 +49,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// </summary>
       /// <param name="value">The value to use in the addition operation.</param>
       /// <returns>A new <see cref="IDieModifier"/> instance.</returns>
+      [NotNull]
       IDieModifier Add(int value);
 
       /// <summary>
@@ -53,6 +57,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// </summary>
       /// <param name="value">The value to use in the subtraction operation.</param>
       /// <returns>A new <see cref="IDieModifier"/> instance.</returns>
+      [NotNull]
       IDieModifier Subtract(int value);
 
       /// <summary>
@@ -60,6 +65,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// </summary>
       /// <param name="value">The value to use in the multiplication operation.</param>
       /// <returns>A new <see cref="IDieModifier"/> instance.</returns>
+      [NotNull]
       IDieModifier MultiplyBy(int value);
 
       /// <summary>
@@ -67,6 +73,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// </summary>
       /// <param name="value">The value to use in the division operation.</param>
       /// <returns>A new <see cref="IDieModifier"/> instance.</returns>
+      [NotNull]
       IDieModifier DivideBy(int value);
    }
 }

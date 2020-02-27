@@ -55,7 +55,7 @@ namespace Org.Edgerunner.Dice.Rolling.Options
                   if (!workingDie.WasDiscarded && workingDie.IsCompounding)
                   {
                      compoundingFound = compoundingFound || workingDie.IsCompounding;
-                     totalValue += workingDie.Value;
+                     totalValue += workingDie.Value["Number"];
                   }
 
                   workingDie = workingDie.NextRoll;

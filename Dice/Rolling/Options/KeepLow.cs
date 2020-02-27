@@ -44,7 +44,7 @@ namespace Org.Edgerunner.Dice.Rolling.Options
       public override void ExecuteDropKeepLogic(IEnumerable<IDieRollResult> result)
       {
          var dice = (from die in result
-                    orderby die.RolledNumber descending
+                    orderby die.SideRolled descending
                     select die).ToList();
 
          for (int i = 0; i < dice.Count - _NumberToKeep; i++) dice[i].WasDiscarded = true;

@@ -16,6 +16,7 @@
 // limitations under the License.
 #endregion
 
+using Org.Edgerunner.Dice.Core;
 using Org.Edgerunner.Dice.Core.Interfaces;
 using Org.Edgerunner.Dice.Rolling.Interfaces;
 
@@ -28,7 +29,7 @@ namespace Org.Edgerunner.Dice.Rolling
    /// <seealso cref="Org.Edgerunner.Dice.Rolling.Interfaces.IDieRollResult" />
    public class DieRollResult : IDieRollResult
    {
-      private int _Value;
+      private readonly IResultValueSet _ValueSet;
 
       private int _RolledNumber;
 
@@ -45,7 +46,7 @@ namespace Org.Edgerunner.Dice.Rolling
       {
          Die = die;
          _RolledNumber = rolledNumber;
-         _Value = rolledNumber;
+         _ValueSet = new ResultValueSet { { "Number", rolledNumber } };
          if (rolledNumber == 1)
             _CriticalFailure = true;
          if (rolledNumber == die.Sides)
@@ -63,7 +64,7 @@ namespace Org.Edgerunner.Dice.Rolling
       {
          Die = die;
          _RolledNumber = rolledNumber;
-         _Value = rolledNumber;
+         _ValueSet = new ResultValueSet { { "Number", rolledNumber } };
          _CriticalFailure = criticalFailure;
          _CriticalSuccess = criticalSuccess;
       }
@@ -98,18 +99,14 @@ namespace Org.Edgerunner.Dice.Rolling
       public virtual bool IsCompounding { get; set; }
 
       /// <inheritdoc/>
-      public virtual int RolledNumber
+      public virtual int SideRolled
       {
          get => _RolledNumber;
          set => _RolledNumber = value;
       }
 
       /// <inheritdoc/>
-      public virtual int Value
-      {
-         get => _Value;
-         set => _Value = value;
-      }
+      public virtual IResultValueSet Value => _ValueSet;
 
       /// <inheritdoc/>
       public virtual IDieRollResult ReRoll()
@@ -145,7 +142,7 @@ namespace Org.Edgerunner.Dice.Rolling
          IsCompounding = true;
          NextRoll = newResult;
          newResult.IsCompounding = true;
-         newResult.Value -= 1;
+         newResult.Value["Number"] -= 1;
          return newResult;
       }
    }

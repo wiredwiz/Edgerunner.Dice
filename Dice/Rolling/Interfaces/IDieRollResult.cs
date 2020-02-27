@@ -73,16 +73,21 @@ namespace Org.Edgerunner.Dice.Rolling.Interfaces
       bool IsCompounding { get; set; }
 
       /// <summary>
-      /// Gets or sets the rolled die number.
+      /// Gets or sets the numeric index of the die side that was rolled.
       /// </summary>
-      /// <value>The rolled die number.</value>
-      int RolledNumber { get; set; }
+      /// <value>The number of the side.</value>
+      /// <remarks>
+      /// The index refers to the sequential number of the side starting with side 1.
+      /// It is important to note that this is different than the potential numeric value of the side, though they may be the same.
+      /// </remarks>
+      int SideRolled { get; set; }
 
       /// <summary>
-      /// Gets or sets the final value for the die roll.
+      /// Gets the result value set for the die roll.
       /// </summary>
-      /// <value>The resulting value.</value>
-      int Value { get; set; }
+      /// <value>The resulting <see cref="IResultValueSet"/>.</value>
+      [NotNull]
+      IResultValueSet Value { get; }
 
       /// <summary>
       /// Re-rolls this die result and links the re-roll to this instance.

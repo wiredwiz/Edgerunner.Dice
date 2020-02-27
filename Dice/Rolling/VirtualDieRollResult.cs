@@ -16,6 +16,7 @@
 // limitations under the License.
 #endregion
 
+using Org.Edgerunner.Dice.Core;
 using Org.Edgerunner.Dice.Core.Interfaces;
 using Org.Edgerunner.Dice.Exceptions;
 using Org.Edgerunner.Dice.Rolling.Interfaces;
@@ -29,7 +30,7 @@ namespace Org.Edgerunner.Dice.Rolling
    /// <seealso cref="Org.Edgerunner.Dice.Rolling.Interfaces.IDieRollResult" />
    public class VirtualDieRollResult : IDieRollResult
    {
-      private int _Value;
+      private readonly IResultValueSet _Value;
 
       private int _RolledNumber;
 
@@ -49,7 +50,7 @@ namespace Org.Edgerunner.Dice.Rolling
       {
          Die = die;
          _RolledNumber = rolledNumber;
-         _Value = rolledNumber;
+         _Value = new ResultValueSet { { "Number", rolledNumber } };
          _IsCriticalFailure = criticalFailure;
          _IsCriticalSuccess = criticalSuccess;
       }
@@ -84,18 +85,14 @@ namespace Org.Edgerunner.Dice.Rolling
       public virtual bool IsCompounding { get; set; }
 
       /// <inheritdoc/>
-      public virtual int RolledNumber
+      public virtual int SideRolled
       {
          get => _RolledNumber;
          set => _RolledNumber = value;
       }
 
       /// <inheritdoc/>
-      public virtual int Value
-      {
-         get => _Value;
-         set => _Value = value;
-      }
+      public virtual IResultValueSet Value => _Value;
 
       /// <inheritdoc/>
       /// <exception cref="T:Org.Edgerunner.Dice.Exceptions.DiceOperationException">Virtual dice cannot be re-rolled.</exception>
