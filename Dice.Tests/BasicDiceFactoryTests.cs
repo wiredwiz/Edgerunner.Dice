@@ -1,5 +1,5 @@
 #region Apache License 2.0
-// <copyright file="DiceFactoryTests.cs" company="Edgerunner.org">
+// <copyright file="BasicDiceFactoryTests.cs" company="Edgerunner.org">
 // Copyright 2020 Thaddeus Ryker
 // </copyright>
 // 
