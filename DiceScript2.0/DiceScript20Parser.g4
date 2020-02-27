@@ -39,6 +39,7 @@ diceRoll
 	| modifiedDice																							#ModifiedDiceExpression
 	| basicDice																								#BasicDiceExpression
 	| fateDice																								#FateDiceExpression
+	| specialtyDice																							#SpecialtyDiceExpression
 	;
 
 optionSet
@@ -51,10 +52,10 @@ criticalSuccessMultiplier
 	: CRITICAL_SUCCESS_MULTIPLIER optionValueNumber;
 
 criticalSuccessOption
-	: DIE_CODE numericExpression CRITICAL_SUCCESS optionValue;
+	: BASIC_DIE_CODE numericExpression CRITICAL_SUCCESS optionValue;
 
 criticalFailureOption
-	: DIE_CODE numericExpression CRITICAL_FAILURE optionValue;
+	: BASIC_DIE_CODE numericExpression CRITICAL_FAILURE optionValue;
 
 successesBotchOption
 	: BOTCH '=' (ALL_CRITICAL_FAILURES | NET_CRITICAL_FAILURES);
@@ -101,10 +102,13 @@ groupedExpression
 	: LEFT_CURLY_BRACE expression (COMMA expression)*? RIGHT_CURLY_BRACE;
 
 basicDice
-	: numericExpression DIE_CODE numericExpression;
+	: numericExpression BASIC_DIE_CODE numericExpression;
 
 fateDice
-	: numericExpression FATE_DIE;
+	: numericExpression FATE_DIE_CODE;
+
+specialtyDice
+	: numericExpression SPECIALTY_DIE_CODE;
 
 numericExpression
 	: inline 
