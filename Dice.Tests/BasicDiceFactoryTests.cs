@@ -17,9 +17,11 @@
 #endregion---------------------------------------------------------------------------------------------------
 
 using System;
+using System.Linq;
 
 using FluentAssertions;
 
+using Org.Edgerunner.Dice.Core;
 using Org.Edgerunner.Dice.Core.Interfaces;
 using Org.Edgerunner.Dice.Factory;
 
@@ -29,7 +31,7 @@ using Xbehave;
 namespace Org.Edgerunner.Dice.Tests
 {
    /// <summary>
-   /// A class containing various dice factory tests.
+   /// A class containing various basic dice factory tests.
    /// </summary>
    public class BasicDiceFactoryTests
    {
@@ -128,6 +130,27 @@ namespace Org.Edgerunner.Dice.Tests
 
          "Produces the correct quantity of dice"
             .x(() => dice.Count.Should().Be(diceCount));
+      }
+
+      /// <summary>
+      /// Tests that a valid number of dice, sent to the dice factory, generates dice of the correct class type.
+      /// </summary>
+      /// <param name="diceCount">The number of dice to create.</param>
+      /// <param name="dieType">The type the dice should have.</param>
+      /// <param name="factory">The created dice factory.</param>
+      /// <param name="dice">The created dice.</param>
+      [Scenario]
+      [Example(1, 4)]
+      public void TestThatFactoryCreatesBasicDice(int diceCount, int? dieType, IDiceFactory factory, IDiceSet dice)
+      {
+         "Given a new basic dice factory"
+            .x(() => factory = new BasicDiceFactory());
+
+         "Creating a list of dice"
+            .x(() => dice = factory.Create(diceCount, dieType));
+
+         "Produces the dice of the correct class type"
+            .x(() => dice.First().Should().BeOfType<BasicDie>());
       }
    }
 }
