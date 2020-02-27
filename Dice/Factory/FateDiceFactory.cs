@@ -1,6 +1,6 @@
 ﻿#region Apache License 2.0
-// <copyright file="DiceFactory.cs" company="Edgerunner.org">
-// Copyright  Thaddeus Ryker
+// <copyright file="FateDiceFactory.cs" company="Edgerunner.org">
+// Copyright 2020 Thaddeus Ryker
 // </copyright>
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,11 +28,11 @@ using Org.Edgerunner.Dice.Exceptions;
 namespace Org.Edgerunner.Dice.Factory
 {
    /// <summary>
-   /// Class that represents a dice factory.
+   /// Class that represents a Fate dice factory.
    /// Implements the <see cref="IDiceFactory" />
    /// </summary>
    /// <seealso cref="IDiceFactory" />
-   public class DiceFactory : IDiceFactory
+   public class FateDiceFactory : IDiceFactory
    {
       #region IDieFactory Members
 
@@ -43,37 +43,23 @@ namespace Org.Edgerunner.Dice.Factory
       {
          if (string.IsNullOrEmpty(diceCode)) throw new ArgumentNullException(nameof(diceCode));
 
-         if (!ParseDieCode(diceCode, out var quantity, out var faces))
+         if (!ParseDieCode(diceCode, out var quantity))
             throw new DieCodeException($"\"{diceCode}\" is not a recognized dice code");
 
-         if (faces == 0)
-            return CreateFate(quantity);
-
-         return Create(quantity, faces);
+         return Create(quantity, 0);
       }
 
       /// <inheritdoc/>
-      /// <exception cref="T:System.ArgumentOutOfRangeException">Quantity is less than 1 or faces is less than 2.</exception>
-      public virtual IDiceSet Create(int quantity, int faces)
+      /// <exception cref="T:System.ArgumentOutOfRangeException">Quantity is less than 1.</exception>
+      /// <exception cref="T:System.ArgumentException">Type was supplied when it should have been null.</exception>
+      public virtual IDiceSet Create(int quantity, int? type)
       {
          if (quantity < 1)
             throw new ArgumentOutOfRangeException(nameof(quantity), "must be greater than 0.");
 
-         if (faces < 2)
-            throw new ArgumentOutOfRangeException(nameof(faces), "must be 2 or greater.");
+         if (type.HasValue)
+            throw new ArgumentException("must not be supplied.", nameof(type));
 
-         // figure out what type of die we need and return 1 or more instances based on the die code
-         var dice = new List<IDie>();
-
-         for (int i = 0; i < quantity; i++)
-            dice.Add(new Die(faces));
-
-         return new DiceSet(dice);
-      }
-
-      /// <inheritdoc/>
-      public IDiceSet CreateFate(int quantity)
-      {
          var dice = new DiceSet();
 
          for (int i = 0; i < quantity; i++)
@@ -83,32 +69,31 @@ namespace Org.Edgerunner.Dice.Factory
          return dice;
       }
 
-      #endregion
+      /// <inheritdoc/>
+      public IDiceSet Create(int quantity)
+      {
+         return Create(quantity, null);
+      }
+
+#endregion
 
       /// <summary>
       /// Parses a dice code into its individual components.
       /// </summary>
       /// <param name="diceCode">The dice code to parse.</param>
       /// <param name="quantity">The quantity of dice to roll.</param>
-      /// <param name="faces">The number of faces each die has.</param>
       /// <returns><c>true</c> if the dice code parses correctly, <c>false</c> otherwise.</returns>
-      /// <remarks>In the case of Fate dice, the <paramref name="faces"/> is returned as 0.</remarks>
-      protected virtual bool ParseDieCode([NotNull] string diceCode, out int quantity, out int faces)
+      protected virtual bool ParseDieCode([NotNull] string diceCode, out int quantity)
       {
          quantity = 1;
-         faces = 0;
-
-         var fate = false;
 
          if (string.IsNullOrEmpty(diceCode))
             return false;
 
          var index = diceCode.LastIndexOf("df", 0, StringComparison.InvariantCultureIgnoreCase);
 
-         if (index == diceCode.Length - 2)
-            fate = true;
-         else
-            index = diceCode.IndexOf('d');
+         if (index != diceCode.Length - 2)
+            return false;
 
          if (index == -1)
             return false;
@@ -122,16 +107,6 @@ namespace Org.Edgerunner.Dice.Factory
             if (quantity < 1)
                return false;
          }
-
-         if (fate)
-            return true;
-
-         var facesText = diceCode.Substring(index + 1);
-         if (!int.TryParse(facesText, out faces))
-            return false;
-
-         if (faces < 2)
-            return false;
 
          return true;
       }

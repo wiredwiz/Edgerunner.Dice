@@ -50,7 +50,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// Sets the modifier to a new additive modifier with the specified value.
       /// </summary>
       /// <param name="value">The value to modify by.</param>
-      /// <returns>the new <see cref="Die.Modifier"/>.</returns>
+      /// <returns>the new <see cref="Core.Modifier"/>.</returns>
       [NotNull]
       Modifier Add(int value);
 
@@ -58,7 +58,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// Sets the modifier to a new subtractive modifier with the specified value.
       /// </summary>
       /// <param name="value">The value to modify by.</param>
-      /// <returns>the new <see cref="Die.Modifier"/>.</returns>
+      /// <returns>the new <see cref="Core.Modifier"/>.</returns>
       [NotNull]
       Modifier Subtract(int value);
 
@@ -66,7 +66,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// Sets the modifier to a new multiplicative modifier with the specified value.
       /// </summary>
       /// <param name="value">The value to modify by.</param>
-      /// <returns>the new <see cref="Die.Modifier"/>.</returns>
+      /// <returns>the new <see cref="Core.Modifier"/>.</returns>
       [NotNull]
       Modifier MultiplyBy(int value);
 
@@ -74,7 +74,7 @@ namespace Org.Edgerunner.Dice.Core.Interfaces
       /// Sets the modifier to a new divisive modifier with the specified value.
       /// </summary>
       /// <param name="value">The value to modify by.</param>
-      /// <returns>the new <see cref="Die.Modifier"/>.</returns>
+      /// <returns>the new <see cref="Core.Modifier"/>.</returns>
       [NotNull]
       Modifier DivideBy(int value);
    }

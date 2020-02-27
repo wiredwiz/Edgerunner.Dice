@@ -9,9 +9,9 @@
 
     <RootNamespace>Org.Edgerunner.Dice.Tests</RootNamespace>
 
-    <AssemblyVersion>1.0.20057.2</AssemblyVersion>
+    <AssemblyVersion>1.0.20058.2</AssemblyVersion>
 
-    <FileVersion>1.0.20057.2</FileVersion>
+    <FileVersion>1.0.20058.2</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -16,8 +16,6 @@
 // limitations under the License.
 #endregion
 
-using System.Collections.Generic;
-
 using JetBrains.Annotations;
 
 using Org.Edgerunner.Dice.Core.Interfaces;
@@ -40,15 +38,15 @@ namespace Org.Edgerunner.Dice.Factory
       /// Creates a list of dice corresponding to the supplied dice parameters.
       /// </summary>
       /// <param name="quantity">The quantity of dice to create.</param>
-      /// <param name="faces">The number of faces each die should have.</param>
+      /// <param name="type">The type of die to create.</param>
       /// <returns>A new <see cref="IDiceSet" />.</returns>
-      IDiceSet Create(int quantity, int faces);
+      IDiceSet Create(int quantity, int? type);
 
       /// <summary>
-      /// Creates a list of Fate dice corresponding to the supplied dice quantity.
+      /// Creates a list of dice corresponding to the supplied dice parameters.
       /// </summary>
       /// <param name="quantity">The quantity of dice to create.</param>
       /// <returns>A new <see cref="IDiceSet" />.</returns>
-      IDiceSet CreateFate(int quantity);
+      IDiceSet Create(int quantity);
    }
 }

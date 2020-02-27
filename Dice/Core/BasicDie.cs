@@ -34,7 +34,7 @@ namespace Org.Edgerunner.Dice.Core
    /// </summary>
    /// <seealso cref="RollableBase" />
    /// <seealso cref="IDie"/>
-   public class Die : RollableBase, IDie
+   public class BasicDie : RollableBase, IDie
    {
       #region Constructors/Destructors/Disposal
 
@@ -43,7 +43,7 @@ namespace Org.Edgerunner.Dice.Core
       /// </summary>
       /// <param name="sides">The number of sides the die should have.</param>
       /// <exception cref="T:System.ArgumentOutOfRangeException">sides was less than 2.</exception>
-      public Die(int sides)
+      public BasicDie(int sides)
       {
          if (sides <= 2)
             throw new ArgumentOutOfRangeException(nameof(sides), "must be 2 or greater");
@@ -54,25 +54,25 @@ namespace Org.Edgerunner.Dice.Core
       }
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="Die" /> class.
+      /// Initializes a new instance of the <see cref="BasicDie" /> class.
       /// </summary>
       /// <param name="sides">The number of sides the die should have.</param>
       /// <param name="criticalSuccessSides">The critical success sides.</param>
       /// <exception cref="T:System.ArgumentOutOfRangeException">sides was less than 2.</exception>
-      public Die(int sides, List<int> criticalSuccessSides)
+      public BasicDie(int sides, List<int> criticalSuccessSides)
       : this(sides)
       {
          foreach (var side in criticalSuccessSides) CriticalSuccessSides[side] = true;
       }
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="Die" /> class.
+      /// Initializes a new instance of the <see cref="BasicDie" /> class.
       /// </summary>
       /// <param name="sides">The number of sides the die should have.</param>
       /// <param name="criticalSuccessSides">The critical success sides.</param>
       /// <param name="criticalFailureSides">The critical failure sides.</param>
       /// <exception cref="T:System.ArgumentOutOfRangeException">sides was less than 2.</exception>
-      public Die(int sides, List<int> criticalSuccessSides, List<int> criticalFailureSides)
+      public BasicDie(int sides, List<int> criticalSuccessSides, List<int> criticalFailureSides)
       : this(sides, criticalSuccessSides)
       {
          foreach (var side in criticalFailureSides) CriticalFailureSides[side] = true;
