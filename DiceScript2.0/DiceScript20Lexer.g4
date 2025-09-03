@@ -91,6 +91,9 @@ COLON
 SEMI
 	: ';';
 
+PIPE
+	: '|';
+
 MAX
 	: M A X;
 
@@ -176,7 +179,7 @@ NUMBER
 	: DIGIT+;
 
 FLOAT
-	: DIGIT+ [.] DIGIT+ (EXPONENTNOTATION EXPONENTSIGN DIGIT+)? 
+	: DIGIT+ [.] DIGIT+ (EXPONENTNOTATION EXPONENTSIGN DIGIT+)?
 	| DIGIT+ EXPONENTNOTATION EXPONENTSIGN DIGIT+
 	;
 
@@ -185,7 +188,7 @@ IDENTIFIER
 	;
 
 LETTER
-	: LOWERCASE 
+	: LOWERCASE
 	| UPPERCASE
 	;
 
@@ -206,14 +209,14 @@ LETTER2
 	: (LOWERCASE | UPPERCASE) -> type(LETTER)
 	;
 
-/* 
- * fragments 
+/*
+ * fragments
  */
 
-fragment LOWERCASE  
+fragment LOWERCASE
 	: [a-z] ;
 
-fragment UPPERCASE  
+fragment UPPERCASE
 	: [A-Z] ;
 
 fragment EXPONENTNOTATION
@@ -222,10 +225,10 @@ fragment EXPONENTNOTATION
 fragment EXPONENTSIGN
 	: ('-' | '+');
 
-fragment DIGIT 
+fragment DIGIT
 	: [0-9] ;
 
-fragment ESC 
+fragment ESC
 	: '\\"' | '\\\\' ;
 
 fragment INPUT_CHARACTER

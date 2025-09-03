@@ -18,6 +18,7 @@ expression
 	| expression '**' expression																			#EponentiationExpression
 	| expression operator=('*' | '/' | '%') expression														#MultiplyDivideModulusExpression
 	| expression operator=('+' | '-') expression															#AddSubtractExpression
+	| PIPE expression PIPE																				#AbsoluteExpression
 	| numericExpression																						#NumberExpression
 	| FLOAT																									#FloatingPointExpression
 	;
@@ -34,7 +35,7 @@ diceRoll
 	| diceRoll REROLL optionValue? (MAX numericExpression)?													#RerollExpression
 	| diceRoll REROLL_ONCE optionValue?																		#RerollOnceExpression
 	| diceRoll CRITICAL_SUCCESS optionValue (CRITICAL_FAILURE optionValue)?									#CriticalSuccessFailureExpression
-	| diceRoll targetCompare numericExpression (FAILURE targetCompare numericExpression)?					#SucessesExpression
+	| diceRoll targetCompare numericExpression (FAILURE targetCompare numericExpression)?					#SuccessesExpression
 	| diceRoll CRITICAL_SUCCESS_MULTIPLIER optionValueNumber												#CriticalSuccessMultiplierExpression
 	| modifiedDice																							#ModifiedDiceExpression
 	| basicDice																								#BasicDiceExpression
@@ -61,19 +62,19 @@ successesBotchOption
 	: BOTCH '=' (ALL_CRITICAL_FAILURES | NET_CRITICAL_FAILURES);
 
 optionValueNumber
-	: numericExpression 
+	: numericExpression
 	| '=' numericExpression
 	;
 
 optionValueNumberSet
-	: numericExpression 
+	: numericExpression
 	| '=' numericExpression
 	| '=' numericSet
 	;
 
 optionValue
-	: numericExpression 
-	| compare numericExpression 
+	: numericExpression
+	| compare numericExpression
 	| '=' numericSet
 	;
 
@@ -111,6 +112,6 @@ specialtyDice
 	: numericExpression SPECIALTY_DIE_CODE;
 
 numericExpression
-	: inline 
+	: inline
 	| NUMBER
 	;
